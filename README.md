@@ -1,6 +1,6 @@
 # custom_story
 
-A new Flutter project.
+custom a story for kids by choosing the main topic amd the name of the main character. 
 
 ## Getting Started
 
