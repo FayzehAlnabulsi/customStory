@@ -23,75 +23,53 @@ class AppSnackBar extends StatelessWidget {
       Duration? duration,
       double? bottomPadding}) {
     var snackBar = SnackBar(
-      content: Stack(
-        children: [
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Padding(
-              padding: EdgeInsets.only(left: 10.w, top: 5.h),
-              child: Image.asset(
-                height: 45.h,
-                width: 50.w,
-                'assets/images/snackBarImage.png',
-                color: isSuccessful
-                    ? AppColor.green.withOpacity(0.3)
-                    : AppColor.pink.withOpacity(0.3),
+      content: Container(
+        padding: EdgeInsets.only(top: 15.w, bottom: 15.w, right: 8.w),
+        decoration: BoxDecoration(
+            color: isSuccessful
+                ? AppColor.green.withOpacity(0.08)
+                : AppColor.pink.withOpacity(0.08),
+            borderRadius: BorderRadius.circular(10.r),
+            border: Border.all(
+              width: 1,
+              color: isSuccessful ? AppColor.green : AppColor.white,
+            )),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              //  width: 260.w,
+              child: AppText(
+                text: message,
+                fontSize: AppSize.snackBarTextSize,
+                color: AppColor.white,
+                fontWeight: FontWeight.bold,
+                overflow: TextOverflow.visible,
               ),
             ),
-          ),
-          Container(
-            padding: EdgeInsets.only(top: 15.w, bottom: 15.w, right: 8.w),
-            decoration: BoxDecoration(
-                color: isSuccessful
-                    ? AppColor.green.withOpacity(0.08)
-                    : AppColor.pink.withOpacity(0.08),
-                borderRadius: BorderRadius.circular(10.r),
-                border: Border.all(
-                  width: 1,
-                  color: isSuccessful
-                      ? AppColor.green
-                      : AppColor.pink,
-                )),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                CircleAvatar(
-                  backgroundColor: isSuccessful
-                      ? AppColor.green
-                      : AppColor.pink,
-                  radius: 13.r,
-                  child: Icon(
-                    isSuccessful ? AppIcons.success : AppIcons.fail,
-                    size: AppSize.iconsSize - 2,
-                    color: AppColor.white,
-                  ),
-                ),
-                SizedBox(
-                  width: 8.w,
-                ),
-                SizedBox(
-                  width: 260.w,
-                  child: AppText(
-                    text: message,
-                    fontSize: AppSize.snackBarTextSize,
-                    color:
-                        isSuccessful ? AppColor.green : AppColor.pink,
-                    fontWeight: FontWeight.bold,
-                    overflow: TextOverflow.visible,
-                  ),
-                ),
-              ],
+            SizedBox(
+              width: 8.w,
             ),
-          ),
-        ],
+            CircleAvatar(
+              backgroundColor: AppColor.white,
+              radius: 13.r,
+              child: Icon(
+                isSuccessful ? AppIcons.success : AppIcons.fail,
+                size: AppSize.iconsSize - 2,
+                color: isSuccessful ? Colors.green[200] : Colors.red,
+              ),
+            ),
+          ],
+        ),
       ),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
       behavior: SnackBarBehavior.floating,
       margin: EdgeInsets.only(
           bottom: bottomPadding ?? 20.h, right: 20.w, left: 20.w),
       padding: EdgeInsets.zero,
-      backgroundColor: AppColor.white,
+      backgroundColor:
+          isSuccessful ? Colors.green[200] : Colors.red.withOpacity(0.7),
       elevation: 20,
       duration: duration ?? const Duration(seconds: 2),
     );

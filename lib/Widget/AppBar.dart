@@ -48,7 +48,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
           surfaceTintColor: AppColor.white,
           backgroundColor: (backgroundColor ?? AppColor.noColor),
           title: Padding(
-            padding: EdgeInsets.only(top: 2.h),
+            padding: EdgeInsets.only(top: 15.h),
             child: AppText(
               text: text,
               fontSize: fontSize ?? AppSize.appBarTextSize,
@@ -77,7 +77,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   // TODO: implement preferredSize
-  Size get preferredSize => Size.fromHeight(55.spMin
+  Size get preferredSize => Size.fromHeight(50.h
       //kToolbarHeight
       );
 }

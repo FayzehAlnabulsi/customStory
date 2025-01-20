@@ -46,6 +46,7 @@ dependencies:
   flutter_riverpod: ^2.6.0
   lottie: 3.1.2
   flutter_local_notifications: ^18.0.1
+  audioplayers: 6.1.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -78,6 +79,8 @@ flutter:
     - assets/videos/
     - assets/images/
     - assets/lottie/
+    - assets/sound/
+    - assets/svg/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

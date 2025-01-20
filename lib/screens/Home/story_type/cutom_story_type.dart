@@ -1,5 +1,6 @@
 import 'package:custom_story/BackEnd/provider_instance.dart';
 import 'package:custom_story/Widget/AppButtons.dart';
+import 'package:custom_story/Widget/AppSnackBar.dart';
 import 'package:custom_story/Widget/AppText.dart';
 import 'package:custom_story/Widget/AppTextFields.dart';
 import 'package:custom_story/components/AppIcons.dart';
@@ -46,7 +47,13 @@ class _CustomStoryState extends State<CustomStory> {
             text:
                 'اكتب قصة قصيرة عن ${about.text},واسم الشخصية الرئيسية ${hero.text} بصيغة json وتحتوي على عنوان و فوائد القصة ')
         .then((result) {
-      AppRoutes.pushTo(context, const ReadStory());
+      result == AppMessage.loaded && provider!
+          .read(storyProvider).story.data!.story!.isNotEmpty
+          ? AppRoutes.pushTo(context, const ReadStory())
+          : AppSnackBar.showInSnackBar(
+              context: context,
+              message: AppMessage.tryAgainSthWrong,
+              isSuccessful: false);
     });
   }
 
@@ -81,7 +88,7 @@ class _CustomStoryState extends State<CustomStory> {
               Align(
                 alignment: Alignment.center,
                 child: Container(
-                  constraints: BoxConstraints(maxHeight: 400.spMin),
+                  constraints: BoxConstraints(maxHeight: 400.h),
                   decoration: BoxDecoration(
                       color: Colors.white.withOpacity(0.6),
                       borderRadius: BorderRadius.circular(10.r)),
@@ -154,7 +161,8 @@ class _CustomStoryState extends State<CustomStory> {
                                       ),
                                     )
                                   : null,
-                              textStyleColor: AppColor.darkGray.withOpacity(0.7),
+                              textStyleColor:
+                                  AppColor.darkGray.withOpacity(0.7),
                               text: loading ? 'تحميل' : 'انشاء قصة'),
                         ]),
                   ),

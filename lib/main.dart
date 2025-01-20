@@ -5,7 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'components/AppMessage.dart';
 
-void main() {
+Future<void> main() async {
+  await ScreenUtil.ensureScreenSize();
   runApp( const ProviderScope(child: MyApp()));
 }
 

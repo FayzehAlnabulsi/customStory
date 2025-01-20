@@ -41,3 +41,17 @@ class Story {
         "moral": moral == null ? [] : List<dynamic>.from(moral!.map((x) => x)),
       };
 }
+
+
+class Encouragement {
+  String? encouragement;
+
+  Encouragement({
+    this.encouragement,
+  });
+
+  factory Encouragement.fromJson(Map<String, dynamic> json) {
+    return Encouragement(
+      encouragement: json["goodnightMessage"],
+    );}
+}

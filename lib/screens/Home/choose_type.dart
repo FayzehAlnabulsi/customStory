@@ -9,6 +9,7 @@ import 'package:custom_story/components/AppSize.dart';
 import 'package:custom_story/components/GeneralWidget.dart';
 import 'package:custom_story/generated/assets.dart';
 import 'package:custom_story/screens/Home/story_type/cutom_story_type.dart';
+import 'package:custom_story/screens/quotes/random_quote.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -61,7 +62,7 @@ class _ChooseTypeState extends State<ChooseType> {
                 flex: 1,
                 child: LottieBuilder.asset(
                  //   height: 200.spMin,
-                    width: 400.spMin,
+                    width: 350.h,
                     'assets/lottie/HN2PHOXYZO.json'),
               ),
               Flexible(
@@ -114,7 +115,9 @@ class _ChooseTypeState extends State<ChooseType> {
                               height: 15.h,
                             ),
                             AppButtons(
-                              onPressed: () {},
+                              onPressed: () {
+                                AppRoutes.pushTo(context, const RandomQuote());
+                              },
                               text: 'العبارة التشجيعية لليوم',
                               width: double.infinity,
                               backgroundColor: AppColor.green,

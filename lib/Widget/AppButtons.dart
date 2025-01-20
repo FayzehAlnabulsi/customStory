@@ -47,7 +47,7 @@ class AppButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: width,
-      height: height ?? 60.spMin,
+      height: height ?? 50.h,
       child: ElevatedButton.icon(
         style: ElevatedButton.styleFrom(
           alignment: alignment,

@@ -1,12 +1,13 @@
 import 'package:custom_story/BackEnd/provider_instance.dart';
-import 'package:custom_story/Widget/AppButtons.dart';
+import 'package:custom_story/Widget/AppBar.dart';
 import 'package:custom_story/components/AppColor.dart';
+import 'package:custom_story/components/AppIcons.dart';
 import 'package:custom_story/components/AppSize.dart';
 import 'package:custom_story/generated/assets.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../Widget/AppText.dart';
 
 class ReadStory extends StatefulWidget {
@@ -17,6 +18,8 @@ class ReadStory extends StatefulWidget {
 }
 
 class _ReadStoryState extends State<ReadStory> {
+  ScrollController scrollController = ScrollController();
+
   int fromIndex = 0;
   int intTo = 85;
 
@@ -30,193 +33,97 @@ class _ReadStoryState extends State<ReadStory> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.symmetric(vertical: 60.spMin, horizontal: 40.spMin),
-        decoration: BoxDecoration(
-          image: DecorationImage(
-              fit: BoxFit.fill,
-              image: Image.asset(
-                Assets.storyBackground,
-              ).image),
-        ),
-        child: ProviderScope.containerOf(context)
-                    .read(storyProvider)
-                    .story
-                    .data ==
-                null
-            ? const SizedBox()
-            : RawScrollbar(
-                controller: ScrollController(),
-                thumbVisibility: true,
-                thumbColor: AppColor.pink,
-                radius: Radius.circular(10.r) ,
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: EdgeInsets.only(right: 15.w),
-                    child: Column(
-                      crossAxisAlignment: intTo <
-                              ProviderScope.containerOf(context)
-                                      .read(storyProvider)
-                                      .story
-                                      .data!
-                                      .story!
-                                      .split(' ')
-                                      .length -
-                                  1
-                          ? CrossAxisAlignment.end
-                          : CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            intTo <
-                                    ProviderScope.containerOf(context)
-                                            .read(storyProvider)
-                                            .story
-                                            .data!
-                                            .story!
-                                            .split(' ')
-                                            .length -
-                                        1
-                                ? Padding(
-                                    padding:
-                                        EdgeInsets.only(bottom: 8.h, top: 20.h),
-                                    child: AppText(
-                                      text: ProviderScope.containerOf(context)
-                                              .read(storyProvider)
-                                              .story
-                                              .data
-                                              ?.title ??
-                                          '',
-                                      fontSize: AppSize.titleSize,
-                                      align: TextAlign.justify,
-                                      color: AppColor.darkGray,
-                                      fontWeight: FontWeight.bold,
-                                      textDirection: TextDirection.rtl,
-                                      overflow: TextOverflow.visible,
-                                    ),
-                                  )
-                                : SizedBox(
-                                    height: 15.h,
-                                  ),
-                            AppText(
-                              text: ProviderScope.containerOf(context)
-                                      .read(storyProvider)
-                                      .story
-                                      .data
-                                      ?.story
-                                      ?.substring(
-                                          fromIndex,
-                                          ProviderScope.containerOf(context)
-                                                      .read(storyProvider)
-                                                      .story
-                                                      .data!
-                                                      .story!
-                                                      .split(' ')
-                                                      .length >
-                                                  85
-                                              ? ProviderScope.containerOf(context)
-                                                  .read(storyProvider)
-                                                  .story
-                                                  .data!
-                                                  .story!
-                                                  .indexOf(
-                                                      ProviderScope.containerOf(context)
-                                                          .read(storyProvider)
-                                                          .story
-                                                          .data!
-                                                          .story!
-                                                          .split(' ')[intTo])
-                                              : ProviderScope.containerOf(context)
-                                                  .read(storyProvider)
-                                                  .story
-                                                  .data!
-                                                  .story!
-                                                  .indexOf(
-                                                      ProviderScope.containerOf(
-                                                              context)
-                                                          .read(storyProvider)
-                                                          .story
-                                                          .data!
-                                                          .story!
-                                                          .split(' ')
-                                                          .last)) ??
-                                  ' ',
-                              fontSize: AppSize.textSize,
-                              align: TextAlign.justify,
-                              textHeight: 2.4,
-                              textDirection: TextDirection.rtl,
-                              overflow: TextOverflow.visible,
-                            ),
-                          ],
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          padding: EdgeInsets.symmetric(
+            vertical: 60.h,
+          ),
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+                fit: BoxFit.fill,
+                image: Image.asset(
+                  Assets.storyBackground,
+                ).image),
+          ),
+          child: ProviderScope.containerOf(context)
+                      .read(storyProvider)
+                      .story
+                      .data ==
+                  null
+              ? const SizedBox()
+              : Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                        left: 10.w,
+                      ),
+                      child: Align(
+                        alignment: Alignment.bottomLeft,
+                        child: IconButton(
+                          icon: Icon(AppIcons.backArrow),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
                         ),
-                        // intTo <
-                        //         ProviderScope.containerOf(context)
-                        //                 .read(storyProvider)
-                        //                 .story
-                        //                 .data!
-                        //                 .story!
-                        //                 .split(' ')
-                        //                 .length -
-                        //             1
-                        //     ? Padding(
-                        //   padding: EdgeInsets.only(bottom: 20.h),
-                        //       child: AppButtons(
-                        //           onPressed: () {
-                        //             setState(() {
-                        //               fromIndex = intTo;
-                        //               intTo = ProviderScope.containerOf(context)
-                        //                       .read(storyProvider)
-                        //                       .story
-                        //                       .data!
-                        //                       .story!
-                        //                       .split(' ')
-                        //                       .length -
-                        //                   1;
-                        //             });
-                        //           },
-                        //           text: '>>',
-                        //           radius: 50.r,
-                        //           backgroundColor: AppColor.green,
-                        //           textStyleColor: Colors.white,
-                        //           textSize: AppSize.titleSize,
-                        //           fontWeight: FontWeight.bold,
-                        //         ),
-                        //     )
-                        //     : intTo ==
-                        //             ProviderScope.containerOf(context)
-                        //                     .read(storyProvider)
-                        //                     .story
-                        //                     .data!
-                        //                     .story!
-                        //                     .split(' ')
-                        //                     .length -
-                        //                 1
-                        //         ? Padding(
-                        //             padding: EdgeInsets.only(bottom: 20.h),
-                        //             child: AppButtons(
-                        //               onPressed: () {
-                        //                 setState(() {
-                        //                   fromIndex = 0;
-                        //                   intTo = 85;
-                        //                 });
-                        //               },
-                        //               text: '<<',
-                        //               radius: 50.r,
-                        //               backgroundColor: AppColor.green,
-                        //               textStyleColor: Colors.white,
-                        //               textSize: AppSize.titleSize,
-                        //               fontWeight: FontWeight.bold,
-                        //             ),
-                        //           )
-                        //         : const SizedBox(),
-                      ],
+                      ),
                     ),
-                  ),
+                    Flexible(
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 5.w),
+                        child: RawScrollbar(
+                            controller: scrollController,
+                            thumbVisibility: true,
+                            thumbColor: AppColor.pink,
+                            radius: Radius.circular(10.r),
+                            child: SingleChildScrollView(
+                              child: Padding(
+                                padding: EdgeInsets.only(right: 13.w),
+                                child: SizedBox(
+                                  width: 265.w,
+                                  child: Column(
+                                    children: [
+                                      AppText(
+                                        text: ProviderScope.containerOf(context)
+                                                .read(storyProvider)
+                                                .story
+                                                .data!
+                                                .title ??
+                                            '',
+                                        fontSize: AppSize.titleSize,
+                                        align: TextAlign.center,
+                                        textHeight: 2.5,
+                                        color:
+                                            AppColor.darkGray.withOpacity(0.9),
+                                        fontWeight: FontWeight.bold,
+                                        textDirection: TextDirection.rtl,
+                                        overflow: TextOverflow.visible,
+                                      ),
+                                      SizedBox(
+                                        height: 5.h,
+                                      ),
+                                      AppText(
+                                        text: ProviderScope.containerOf(context)
+                                                .read(storyProvider)
+                                                .story
+                                                .data!
+                                                .story ??
+                                            '',
+                                        fontSize: AppSize.textSize,
+                                        align: TextAlign.justify,
+                                        textHeight: 2.4,
+                                        textDirection: TextDirection.rtl,
+                                        overflow: TextOverflow.visible,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            )),
+                      ),
+                    ),
+                  ],
                 )),
-      ),
     );
   }
 }
