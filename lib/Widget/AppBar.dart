@@ -42,21 +42,25 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
           automaticallyImplyLeading: false,
           iconTheme: IconThemeData(
             color: AppColor.white,
-            size: 25.r,
+            size: AppSize.appBarIconsSize
           ),
           centerTitle: centerTitle ?? false,
           surfaceTintColor: AppColor.white,
           backgroundColor: (backgroundColor ?? AppColor.noColor),
           title: Padding(
-            padding: EdgeInsets.only(top: 15.h),
+            padding: EdgeInsets.only(top: 10.h),
             child: AppText(
               text: text,
               fontSize: fontSize ?? AppSize.appBarTextSize,
               color: textColor ?? AppColor.black,
+              align: TextAlign.center,
               fontWeight: FontWeight.bold,
             ),
           ),
-          leading: leading,
+          leading: Padding(
+            padding:  EdgeInsets.only(top:5.h, left: 8.w),
+            child: leading,
+          ),
           leadingWidth: leadingWidth,
           actions: actions ??
               [
@@ -77,7 +81,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   // TODO: implement preferredSize
-  Size get preferredSize => Size.fromHeight(50.h
+  Size get preferredSize => Size.fromHeight(45.h
       //kToolbarHeight
       );
 }

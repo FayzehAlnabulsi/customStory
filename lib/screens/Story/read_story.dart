@@ -24,12 +24,6 @@ class _ReadStoryState extends State<ReadStory> {
   int intTo = 85;
 
   @override
-  void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {});
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
@@ -56,12 +50,16 @@ class _ReadStoryState extends State<ReadStory> {
                   children: [
                     Padding(
                       padding: EdgeInsets.only(
-                        left: 10.w,
+                        left: 15.w,
                       ),
                       child: Align(
                         alignment: Alignment.bottomLeft,
                         child: IconButton(
-                          icon: Icon(AppIcons.backArrow),
+                          icon: Icon(
+                            AppIcons.backArrow,
+                            size: AppSize.appBarIconsSize,
+                            color: AppColor.darkGray.withOpacity(.7),
+                          ),
                           onPressed: () {
                             Navigator.pop(context);
                           },
@@ -77,6 +75,7 @@ class _ReadStoryState extends State<ReadStory> {
                             thumbColor: AppColor.pink,
                             radius: Radius.circular(10.r),
                             child: SingleChildScrollView(
+                              controller: scrollController,
                               child: Padding(
                                 padding: EdgeInsets.only(right: 13.w),
                                 child: SizedBox(

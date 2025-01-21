@@ -9,6 +9,7 @@ import 'package:custom_story/components/AppSize.dart';
 import 'package:custom_story/components/GeneralWidget.dart';
 import 'package:custom_story/generated/assets.dart';
 import 'package:custom_story/screens/Home/story_type/cutom_story_type.dart';
+import 'package:custom_story/screens/Story/llevels_main.dart';
 import 'package:custom_story/screens/quotes/random_quote.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 
+import '../Story/learnt_morals.dart';
 import '../Story/read_story.dart';
 
 class ChooseType extends StatefulWidget {
@@ -47,7 +49,7 @@ class _ChooseTypeState extends State<ChooseType> {
       body: Container(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
-          padding: EdgeInsets.symmetric(horizontal:15.w),
+          padding: EdgeInsets.symmetric(horizontal: 15.w),
           decoration: BoxDecoration(
             image: DecorationImage(
                 fit: BoxFit.cover,
@@ -61,7 +63,7 @@ class _ChooseTypeState extends State<ChooseType> {
               Flexible(
                 flex: 1,
                 child: LottieBuilder.asset(
-                 //   height: 200.spMin,
+                    //   height: 200.spMin,
                     width: 350.h,
                     'assets/lottie/HN2PHOXYZO.json'),
               ),
@@ -95,7 +97,9 @@ class _ChooseTypeState extends State<ChooseType> {
                               height: 45.h,
                             ),
                             AppButtons(
-                              onPressed: () {},
+                              onPressed: () {
+                                AppRoutes.pushTo(context, const LevelsMain());
+                              },
                               text: 'مراحل',
                               width: double.infinity,
                               backgroundColor: AppColor.pink,

@@ -43,7 +43,7 @@ class _RandomQuoteState extends State<RandomQuote> {
         .read(storyProvider)
         .getQuote(
             text:
-                'اكتب عبارة واحدة  ليس مصفوفة goodnightMessage فقط  بصيغة json عشوائية لطفل قبل النوم باللغة العربية')
+                'اكتب جملة تشجيعية واحدة phrase من عشر كلمات ليس مصفوفة فقط بصيغة json عشوائية لطفل باللغة العربية')
         .then((result) async {
       await player.play(AssetSource('sound/clapping.mp3'));
 
@@ -92,18 +92,26 @@ class _RandomQuoteState extends State<RandomQuote> {
                   height: 250.h,
                 ),
               )
-            : Center(
-                child: AppText(
-                  text: ProviderScope.containerOf(context)
-                          .read(storyProvider)
-                          .quote
-                          .data
-                          ?.encouragement ??
-                      'انت شخص رائع',
-                  overflow: TextOverflow.visible,
-                  align: TextAlign.center,
-                  fontSize: AppSize.textSize,
-                ),
+            : Stack(
+                fit: StackFit.expand,
+                children: [
+                  LottieBuilder.asset(
+                    'assets/lottie/celebrate.json',
+                  ),
+                  Center(
+                    child: AppText(
+                      text: ProviderScope.containerOf(context)
+                              .read(storyProvider)
+                              .quote
+                              .data
+                              ?.encouragement ??
+                          'انت شخص رائع',
+                      overflow: TextOverflow.visible,
+                      align: TextAlign.center,
+                      fontSize: AppSize.textSize,
+                    ),
+                  ),
+                ],
               ),
       ),
     );

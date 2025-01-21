@@ -15,6 +15,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../Widget/AppBar.dart';
 import '../../../components/AppColor.dart';
+import '../../Story/learnt_morals.dart';
 import '../../Story/read_story.dart';
 
 class CustomStory extends StatefulWidget {
@@ -45,11 +46,14 @@ class _CustomStoryState extends State<CustomStory> {
         .read(storyProvider)
         .getStory(
             text:
-                'اكتب قصة قصيرة عن ${about.text},واسم الشخصية الرئيسية ${hero.text} بصيغة json وتحتوي على عنوان و فوائد القصة ')
+                'write story about ${about.text}, the main character name is ${hero.text} in a json format contains title and benefits in arabic')
         .then((result) {
-      result == AppMessage.loaded && provider!
-          .read(storyProvider).story.data!.story!.isNotEmpty
-          ? AppRoutes.pushTo(context, const ReadStory())
+      result == AppMessage.loaded &&
+              provider!.read(storyProvider).story.data!.story!.isNotEmpty
+          ? AppRoutes.pushThenRefresh(context, const ReadStory(), then: (v) {
+              AppRoutes.pushReplacementTo(
+                  context, noAnimation: true, const LearntMorals());
+            })
           : AppSnackBar.showInSnackBar(
               context: context,
               message: AppMessage.tryAgainSthWrong,

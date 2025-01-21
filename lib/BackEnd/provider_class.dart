@@ -105,8 +105,8 @@ class StoryProviderClass extends ChangeNotifier {
 
       print(jsonDecode(response.body));
       if (response.statusCode == 200) {
-        quote.data = Encouragement.fromJson(jsonDecode(
-            '{${jsonDecode(response.body)['candidates'][0]['content']['parts'][0]['text'].substring(12).replaceAll('```', '').trim()}'));
+        quote.data = Encouragement.fromJson(
+            jsonDecode(response.body)['candidates'][0]['content']['parts'][0]);
         quote.result = AppMessage.loaded;
 
         print('quote.dat: ${quote.data?.encouragement}');

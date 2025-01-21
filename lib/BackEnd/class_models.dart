@@ -28,20 +28,20 @@ class Story {
 
   factory Story.fromJson(Map<String, dynamic> json) {
     return Story(
-        title: json["title"],
-        story: json["story"],
-        moral: json["moral"] == null
-            ? []
-            : List<String>.from(json["moral"]!.map((x) => x)),
-      );}
+      title: json["title"],
+      story: json["story"],
+      moral: json["benefits"] == null
+          ? []
+          : List<String>.from(json["benefits"]!.map((x) => x)),
+    );
+  }
 
   Map<String, dynamic> toJson() => {
         "title": title,
         "story": story,
-        "moral": moral == null ? [] : List<dynamic>.from(moral!.map((x) => x)),
+        "benefits": moral == null ? [] : List<dynamic>.from(moral!.map((x) => x)),
       };
 }
-
 
 class Encouragement {
   String? encouragement;
@@ -52,6 +52,7 @@ class Encouragement {
 
   factory Encouragement.fromJson(Map<String, dynamic> json) {
     return Encouragement(
-      encouragement: json["goodnightMessage"],
-    );}
+      encouragement: json["text"],
+    );
+  }
 }
