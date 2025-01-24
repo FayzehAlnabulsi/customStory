@@ -31,7 +31,7 @@ class Story {
       title: json["title"],
       story: json["story"],
       moral: json["benefits"] == null
-          ? []
+          ? <String>[]
           : List<String>.from(json["benefits"]!.map((x) => x)),
     );
   }

@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../Widget/AppText.dart';
+import 'llevels_main.dart';
 
 class ReadStory extends StatefulWidget {
   const ReadStory({super.key});
@@ -22,6 +23,14 @@ class _ReadStoryState extends State<ReadStory> {
 
   int fromIndex = 0;
   int intTo = 85;
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      cc != null ? Navigator.pop(cc!) : null;
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

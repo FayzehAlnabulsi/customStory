@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import '../generated/assets.dart';
 import '../components/AppColor.dart';
+import '../screens/Story/llevels_main.dart';
 
 class AppDialog {
   static showLoading({required context}) {
@@ -9,6 +11,7 @@ class AppDialog {
         barrierDismissible: true,
         context: context,
         builder: (context) {
+          cc = context;
           return AlertDialog(
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10))),
@@ -17,8 +20,10 @@ class AppDialog {
             backgroundColor: Colors.transparent,
             content: Container(
               alignment: AlignmentDirectional.center,
-             // child: const Center(child: CircularProgressIndicator(),)
-              //Lottie.asset(Assets.loading),
+              child: LottieBuilder.asset(
+                'assets/lottie/raffle.json',
+                height: 250.h,
+              ),
             ),
           );
         });
