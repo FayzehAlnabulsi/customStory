@@ -1,5 +1,4 @@
-import 'package:custom_story/screens/Home/choose_type.dart';
-import 'package:custom_story/screens/Home/story_type/cutom_story_type.dart';
+import 'package:custom_story/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,7 +6,7 @@ import 'components/AppMessage.dart';
 
 Future<void> main() async {
   await ScreenUtil.ensureScreenSize();
-  runApp( const ProviderScope(child: MyApp()));
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -35,7 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return ScreenUtilInit(
         minTextAdapt: true,
         builder: (_, __) => MaterialApp(
-              home: const ChooseType(),
+              home: const SplashScreen(),
               debugShowCheckedModeBanner: false,
               title: AppMessage.appName,
             ));

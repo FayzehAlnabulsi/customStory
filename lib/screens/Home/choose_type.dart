@@ -1,12 +1,9 @@
-import 'package:custom_story/BackEnd/provider_instance.dart';
 import 'package:custom_story/Widget/AppBar.dart';
 import 'package:custom_story/Widget/AppButtons.dart';
 import 'package:custom_story/Widget/AppText.dart';
-import 'package:custom_story/Widget/AppTextFields.dart';
 import 'package:custom_story/components/AppColor.dart';
 import 'package:custom_story/components/AppRoutes.dart';
 import 'package:custom_story/components/AppSize.dart';
-import 'package:custom_story/components/GeneralWidget.dart';
 import 'package:custom_story/generated/assets.dart';
 import 'package:custom_story/screens/Home/story_type/cutom_story_type.dart';
 import 'package:custom_story/screens/Story/llevels_main.dart';
@@ -16,9 +13,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
-
-import '../Story/learnt_morals.dart';
-import '../Story/read_story.dart';
 
 class ChooseType extends StatefulWidget {
   const ChooseType({super.key});
