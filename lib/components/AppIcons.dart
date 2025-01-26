@@ -9,4 +9,5 @@ class AppIcons {
   static IconData backArrow = Icons.arrow_back_ios;
   static IconData success = FluentIcons.checkmark_12_regular;
   static IconData fail = FluentIcons.dismiss_20_regular;
+  static IconData globe = FluentIcons.globe_12_filled;
 }

@@ -2,6 +2,7 @@ import 'package:custom_story/Widget/AppBar.dart';
 import 'package:custom_story/Widget/AppButtons.dart';
 import 'package:custom_story/Widget/AppText.dart';
 import 'package:custom_story/components/AppColor.dart';
+import 'package:custom_story/components/AppIcons.dart';
 import 'package:custom_story/components/AppRoutes.dart';
 import 'package:custom_story/components/AppSize.dart';
 import 'package:custom_story/generated/assets.dart';
@@ -13,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ChooseType extends StatefulWidget {
   const ChooseType({super.key});
@@ -34,8 +36,16 @@ class _ChooseTypeState extends State<ChooseType> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarWidget(
-          text: 'قصة مخصصة',
-          actions: [],
+          text: AppLocalizations.of(context)!.customStory,
+          actions: [
+            IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  AppIcons.globe,
+                  color: Colors.white,
+                  size: AppSize.appBarIconsSize,
+                ))
+          ],
           textColor: Colors.white,
           centerTitle: true,
           showActions: false,
@@ -81,20 +91,20 @@ class _ChooseTypeState extends State<ChooseType> {
                               height: 50.h,
                             ),
                             AppText(
-                              text:
-                                  'لنغرس القيم الاخلاقية والاداب من خلال القصص الممتعة',
+                              text: AppLocalizations.of(context)!.mainTitle,
                               fontSize: AppSize.titleSize,
                               overflow: TextOverflow.visible,
+                              color: AppColor.darkGray.withOpacity(.8),
                               align: TextAlign.center,
                             ),
                             SizedBox(
-                              height: 45.h,
+                              height: 35.h,
                             ),
                             AppButtons(
                               onPressed: () {
                                 AppRoutes.pushTo(context, const LevelsMain());
                               },
-                              text: 'مراحل',
+                              text: AppLocalizations.of(context)!.levels,
                               width: double.infinity,
                               backgroundColor: AppColor.pink,
                             ),
@@ -105,7 +115,7 @@ class _ChooseTypeState extends State<ChooseType> {
                               onPressed: () {
                                 AppRoutes.pushTo(context, const CustomStory());
                               },
-                              text: 'قصة مخصصة',
+                              text: AppLocalizations.of(context)!.customStory,
                               width: double.infinity,
                               backgroundColor: AppColor.blue,
                             ),
@@ -116,7 +126,8 @@ class _ChooseTypeState extends State<ChooseType> {
                               onPressed: () {
                                 AppRoutes.pushTo(context, const RandomQuote());
                               },
-                              text: 'العبارة التشجيعية لليوم',
+                              text: AppLocalizations.of(context)!
+                                  .encouragementMessage,
                               width: double.infinity,
                               backgroundColor: AppColor.green,
                             )

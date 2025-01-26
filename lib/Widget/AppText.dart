@@ -43,7 +43,7 @@ class AppText extends StatelessWidget {
       style: TextStyle(
           color: color,
           overflow: overflow ?? TextOverflow.ellipsis,
-          fontFamily: fontFamily ?? GoogleFonts.tajawal().fontFamily,
+          fontFamily: fontFamily ?? GoogleFonts.macondo().fontFamily,
           fontSize: fontSize,
           fontWeight: fontWeight,
           decoration: textDecoration,
@@ -66,7 +66,7 @@ class AppText extends StatelessWidget {
     return TextStyle(
         color: color,
         overflow: overflow ?? TextOverflow.ellipsis,
-        fontFamily: fontFamily ?? GoogleFonts.tajawal().fontFamily,
+        fontFamily: fontFamily ?? GoogleFonts.macondo().fontFamily,
         fontSize: fontSize,
         fontWeight: fontWeight,
         decoration: textDecoration,

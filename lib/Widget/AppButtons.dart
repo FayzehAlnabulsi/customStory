@@ -58,7 +58,7 @@ class AppButtons extends StatelessWidget {
           backgroundColor: (backgroundColor ?? AppColor.brown),
           elevation: elevation ?? 0,
           textStyle: TextStyle(
-              fontFamily: GoogleFonts.tajawal().fontFamily,
+              fontFamily: GoogleFonts.macondo().fontFamily,
               color: textStyleColor ?? Colors.black,
               fontSize: AppSize.smallSubText,
               fontStyle: FontStyle.normal,

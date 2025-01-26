@@ -17,6 +17,7 @@ import '../../../Widget/AppBar.dart';
 import '../../../components/AppColor.dart';
 import '../../Story/learnt_morals.dart';
 import '../../Story/read_story.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CustomStory extends StatefulWidget {
   const CustomStory({super.key});
@@ -65,7 +66,7 @@ class _CustomStoryState extends State<CustomStory> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarWidget(
-          text: 'قصة مخصصة',
+          text: AppLocalizations.of(context)!.createStory,
           actions: [],
           leading: IconButton(
               onPressed: () {
@@ -100,76 +101,71 @@ class _CustomStoryState extends State<CustomStory> {
               ),
               Padding(
                 padding: EdgeInsets.all(15.r),
-                child: Directionality(
-                  textDirection: TextDirection.rtl,
-                  child: Form(
-                    key: _key,
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          AppText(
-                            text: 'قم بتخصيص جوهر للقصة واسم بطل/ة القصة',
-                            fontSize: AppSize.titleSize,
-                            color: AppColor.darkGray,
-                            overflow: TextOverflow.visible,
-                            align: TextAlign.center,
-                          ),
-                          SizedBox(height: 20.h),
-                          AppTextFields(
-                            validator: (String? v) {
-                              return v == null || v.isEmpty
-                                  ? AppMessage.mandatoryTx
-                                  : null;
+                child: Form(
+                  key: _key,
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        AppText(
+                          text:
+                              AppLocalizations.of(context)!.customStoryTitle,
+                          fontSize: AppSize.titleSize-2,
+                          color: AppColor.darkGray,
+                          overflow: TextOverflow.visible,
+                          align: TextAlign.center,
+                        ),
+                        SizedBox(height: 20.h),
+                        AppTextFields(
+                          validator: (String? v) {
+                            return v == null || v.isEmpty
+                                ? AppMessage.mandatoryTx
+                                : null;
+                          },
+                          controller: about,
+                          fillColor: AppColor.white.withOpacity(0.5),
+                          hintText: AppLocalizations.of(context)!.subject,
+                        ),
+                        SizedBox(height: 10.h),
+                        AppTextFields(
+                          validator: (String? v) {
+                            return v == null || v.isEmpty
+                                ? AppMessage.mandatoryTx
+                                : null;
+                          },
+                          controller: hero,
+                          hintText:
+                              AppLocalizations.of(context)!.mainCharacterName,
+                          fillColor: AppColor.white.withOpacity(0.5),
+                        ),
+                        SizedBox(height: 30.h),
+                        AppButtons(
+                            onPressed: () async {
+                              if (_key.currentState!.validate()) {
+                                setState(() {
+                                  loading = true;
+                                });
+                                await loadData();
+                                setState(() {
+                                  loading = false;
+                                });
+                              }
                             },
-                            controller: about,
-                            textDirection: TextDirection.rtl,
-                            textAlignment: TextAlign.right,
-                            fillColor: AppColor.white.withOpacity(0.5),
-                            hintText: 'جوهر القصة',
-                          ),
-                          SizedBox(height: 10.h),
-                          AppTextFields(
-                            validator: (String? v) {
-                              return v == null || v.isEmpty
-                                  ? AppMessage.mandatoryTx
-                                  : null;
-                            },
-                            controller: hero,
-                            textDirection: TextDirection.rtl,
-                            textAlignment: TextAlign.right,
-                            hintText: 'اسم بطل/ة القصة',
-                            fillColor: AppColor.white.withOpacity(0.5),
-                          ),
-                          SizedBox(height: 30.h),
-                          AppButtons(
-                              onPressed: () async {
-                                if (_key.currentState!.validate()) {
-                                  setState(() {
-                                    loading = true;
-                                  });
-                                  await loadData();
-                                  setState(() {
-                                    loading = false;
-                                  });
-                                }
-                              },
-                              backgroundColor: AppColor.blue,
-                              width: double.infinity,
-                              label: loading
-                                  ? SizedBox(
-                                      height: 25.h,
-                                      width: 25.h,
-                                      child: CircularProgressIndicator(
-                                        color: AppColor.white,
-                                      ),
-                                    )
-                                  : null,
-                              textStyleColor:
-                                  AppColor.darkGray.withOpacity(0.7),
-                              text: loading ? 'تحميل' : 'انشاء قصة'),
-                        ]),
-                  ),
+                            backgroundColor: AppColor.blue,
+                            width: double.infinity,
+                            label: loading
+                                ? SizedBox(
+                                    height: 25.h,
+                                    width: 25.h,
+                                    child: CircularProgressIndicator(
+                                      color: AppColor.white,
+                                    ),
+                                  )
+                                : null,
+                            textStyleColor:
+                                AppColor.darkGray.withOpacity(0.7),
+                            text: AppLocalizations.of(context)!.createStory),
+                      ]),
                 ),
               ),
             ],

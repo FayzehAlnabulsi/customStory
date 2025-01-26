@@ -19,6 +19,7 @@ import '../../components/AppRoutes.dart';
 import 'learnt_morals.dart';
 
 BuildContext? cc;
+
 class LevelsMain extends StatefulWidget {
   const LevelsMain({super.key});
 
@@ -44,7 +45,6 @@ class _LevelsMainState extends State<LevelsMain> {
             text:
                 'write story about $subject in a json format contains benefits and title in arabic')
         .then((result) {
-
       result == AppMessage.loaded &&
               provider!.read(storyProvider).story.data!.story!.isNotEmpty
           ? AppRoutes.pushThenRefresh(context, const ReadStory(), then: (v) {
@@ -133,13 +133,16 @@ class _LevelsMainState extends State<LevelsMain> {
                                   SizedBox(
                                     height: 5.h,
                                   ),
-                                  Flexible(
-                                      flex: 1,
-                                      child: AppText(
-                                        text: adj[i],
-                                        color: AppColor.darkGray,
-                                        fontSize: AppSize.textSize,
-                                      ))
+                                  Visibility(
+                                    visible: i == 0,
+                                    child: Flexible(
+                                        flex: 1,
+                                        child: AppText(
+                                          text: i == 0 ? adj[i] : '',
+                                          color: AppColor.darkGray,
+                                          fontSize: AppSize.textSize,
+                                        )),
+                                  )
                                 ],
                               ),
                             ),

@@ -124,7 +124,7 @@ class AppTextFields extends StatelessWidget {
           errorStyle: TextStyle(
               color: AppColor.error,
               fontSize: AppSize.errorSize,
-              fontFamily: GoogleFonts.tajawal().fontFamily),
+              fontFamily: GoogleFonts.macondo().fontFamily),
           hintStyle: AppText.styleText(
             color: hintColor ?? AppColor.darkGray,
             fontSize: labelSize ?? AppSize.smallSubText,
@@ -155,6 +155,7 @@ class AppTextFields extends StatelessWidget {
           contentPadding: contentPadding ??
               EdgeInsets.only(
                   right: AppSize.contentPadding + 4,
+                  left: AppSize.contentPadding + 4,
                   bottom: AppSize.contentPadding + 1,
                   top: AppSize.contentPadding + 1),
           suffixIcon: suffixIcon,

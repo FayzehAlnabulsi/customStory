@@ -20,7 +20,7 @@ class StoryProviderClass extends ChangeNotifier {
   ///get order=============================================================================================================================================================================================================
   Future getStory({required String text}) async {
     debugPrint('getting Story ... !');
-    // try {
+    try {
       story.result = AppMessage.loading;
       notifyListeners();
 
@@ -59,25 +59,25 @@ class StoryProviderClass extends ChangeNotifier {
         notifyListeners();
         return AppMessage.serverExceptions;
       }
-    // } catch (e) {
-    //   if (e is FormatException) {
-    //     story.result = AppMessage.formatException;
-    //     notifyListeners();
-    //     return AppMessage.formatException;
-    //   } else if (e is SocketException) {
-    //     story.result = AppMessage.socketException;
-    //     notifyListeners();
-    //     return AppMessage.socketException;
-    //   } else if (e is TimeoutException) {
-    //     story.result = AppMessage.timeoutException;
-    //     notifyListeners();
-    //     return AppMessage.timeoutException;
-    //   } else {
-    //     story.result = AppMessage.serverExceptions;
-    //     notifyListeners();
-    //     return AppMessage.serverExceptions;
-    //   }
-    // }
+    } catch (e) {
+      if (e is FormatException) {
+        story.result = AppMessage.formatException;
+        notifyListeners();
+        return AppMessage.formatException;
+      } else if (e is SocketException) {
+        story.result = AppMessage.socketException;
+        notifyListeners();
+        return AppMessage.socketException;
+      } else if (e is TimeoutException) {
+        story.result = AppMessage.timeoutException;
+        notifyListeners();
+        return AppMessage.timeoutException;
+      } else {
+        story.result = AppMessage.serverExceptions;
+        notifyListeners();
+        return AppMessage.serverExceptions;
+      }
+    }
   }
 
   ///get order=============================================================================================================================================================================================================
