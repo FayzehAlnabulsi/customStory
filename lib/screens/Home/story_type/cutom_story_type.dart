@@ -15,6 +15,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../Widget/AppBar.dart';
 import '../../../components/AppColor.dart';
+import '../../../main.dart';
 import '../../Story/learnt_morals.dart';
 import '../../Story/read_story.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -47,7 +48,7 @@ class _CustomStoryState extends State<CustomStory> {
         .read(storyProvider)
         .getStory(
             text:
-                'write story about ${about.text}, the main character name is ${hero.text} in a json format contains title and benefits in arabic')
+                'write story about ${about.text}, the main character name is ${hero.text} in a json format contains title and benefits in ${MyApp.locale == const Locale('en') ? 'english' : 'arabic'}')
         .then((result) {
       result == AppMessage.loaded &&
               provider!.read(storyProvider).story.data!.story!.isNotEmpty
@@ -108,9 +109,8 @@ class _CustomStoryState extends State<CustomStory> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         AppText(
-                          text:
-                              AppLocalizations.of(context)!.customStoryTitle,
-                          fontSize: AppSize.titleSize-2,
+                          text: AppLocalizations.of(context)!.customStoryTitle,
+                          fontSize: AppSize.titleSize - 2,
                           color: AppColor.darkGray,
                           overflow: TextOverflow.visible,
                           align: TextAlign.center,
@@ -119,7 +119,7 @@ class _CustomStoryState extends State<CustomStory> {
                         AppTextFields(
                           validator: (String? v) {
                             return v == null || v.isEmpty
-                                ? AppMessage.mandatoryTx
+                                ? AppLocalizations.of(context)!.required
                                 : null;
                           },
                           controller: about,
@@ -130,7 +130,7 @@ class _CustomStoryState extends State<CustomStory> {
                         AppTextFields(
                           validator: (String? v) {
                             return v == null || v.isEmpty
-                                ? AppMessage.mandatoryTx
+                                ? AppLocalizations.of(context)!.required
                                 : null;
                           },
                           controller: hero,
@@ -162,8 +162,7 @@ class _CustomStoryState extends State<CustomStory> {
                                     ),
                                   )
                                 : null,
-                            textStyleColor:
-                                AppColor.darkGray.withOpacity(0.7),
+                            textStyleColor: AppColor.darkGray.withOpacity(0.7),
                             text: AppLocalizations.of(context)!.createStory),
                       ]),
                 ),

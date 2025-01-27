@@ -1,0 +1,12 @@
+{
+  "customStory": "Custom Story",
+   "mainTitle": "Lets enhance our morals and behaviours by fun stories",
+    "levels": "Levels",
+    "encouragementMessage": "Encouragement Message",
+    "customStoryTitle": "Enter the subject and the name of the main character",
+    "subject": "subject",
+    "mainCharacterName": "main Character's Name",
+    "createStory": "create Story",
+    "benefits":"benefits",
+    "required":"required field"
+}

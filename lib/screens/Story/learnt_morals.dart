@@ -3,7 +3,6 @@ import 'package:custom_story/Widget/AppBar.dart';
 import 'package:custom_story/components/AppColor.dart';
 import 'package:custom_story/components/AppIcons.dart';
 import 'package:custom_story/components/AppSize.dart';
-import 'package:custom_story/generated/assets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,6 +10,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lottie/lottie.dart';
 import '../../Widget/AppText.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LearntMorals extends StatefulWidget {
   const LearntMorals({super.key});
@@ -24,8 +24,7 @@ class _LearntMoralsState extends State<LearntMorals> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarWidget(
-          text: 'ماذا تعلمت من القصة',
-          actions: [],
+          text: AppLocalizations.of(context)!.benefits,
           leading: IconButton(
               onPressed: () {
                 Navigator.pop(context);
@@ -64,8 +63,13 @@ class _LearntMoralsState extends State<LearntMorals> {
               itemBuilder: (context, i) => Padding(
                 padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
+                    SvgPicture.asset('assets/svg/points_book.svg',
+                        height: 25.h, width: 30.w),
+                    SizedBox(
+                      width: 8.w,
+                    ),
                     Flexible(
                       child: AppText(
                           text: ProviderScope.containerOf(context)
@@ -73,15 +77,10 @@ class _LearntMoralsState extends State<LearntMorals> {
                               .story
                               .data!
                               .moral![i],
-                          align: TextAlign.end,
+                          align: TextAlign.start,
                           overflow: TextOverflow.visible,
                           fontSize: AppSize.titleSize),
-                    ),
-                    SizedBox(
-                      width: 8.w,
-                    ),
-                    SvgPicture.asset('assets/svg/points_book.svg',
-                        height: 25.h, width: 30.w),
+                    )
                   ],
                 ),
               ),

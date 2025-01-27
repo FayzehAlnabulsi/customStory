@@ -6,5 +6,7 @@
   "customStoryTitle": "قم بتخصيص جوهر واسم الشخصية الرئيسية للقصة",
   "subject": "جوهر القصة",
   "mainCharacterName": "اسم بطل/ة القصة",
-  "createStory": "إنشاء قصة"
+  "createStory": "إنشاء قصة",
+  "benefits":"المستفاد من القصة",
+  "required":"حقل اجباري"
 }

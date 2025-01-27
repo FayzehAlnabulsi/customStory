@@ -3,7 +3,6 @@ import 'package:custom_story/generated/assets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../components/AppRoutes.dart';
 import 'Home/choose_type.dart';
 
@@ -15,31 +14,12 @@ class SplashScreen extends StatefulWidget {
 }
 
 class SplashScreenState extends State<SplashScreen> {
-  static Locale locale = const Locale('en');
-
   @override
   void initState() {
-    setLang();
     Future.delayed(const Duration(seconds: 2)).then((v) {
       AppRoutes.pushReplacementTo(context, const ChooseType());
     });
     super.initState();
-  }
-
-  setLang() async {
-    await setLocalization(code: 'ar');
-    await getLocalization();
-  }
-
-  static Future<String?> getLocalization() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    locale = Locale(prefs.getString('locale') ?? 'en');
-    return prefs.getString('locale');
-  }
-
-  static setLocalization({required String code}) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.setString('locale', code);
   }
 
   @override

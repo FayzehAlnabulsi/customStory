@@ -5,13 +5,12 @@ import 'package:custom_story/components/AppColor.dart';
 import 'package:custom_story/components/AppIcons.dart';
 import 'package:custom_story/components/AppSize.dart';
 import 'package:custom_story/generated/assets.dart';
+import 'package:custom_story/main.dart';
 import 'package:custom_story/screens/Story/read_story.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:lottie/lottie.dart';
 import '../../Widget/AppSnackBar.dart';
 import '../../Widget/AppText.dart';
 import '../../components/AppMessage.dart';
@@ -43,7 +42,7 @@ class _LevelsMainState extends State<LevelsMain> {
         .read(storyProvider)
         .getStory(
             text:
-                'write story about $subject in a json format contains benefits and title in arabic')
+                'write story about $subject in a json format contains benefits and title in ${MyApp.locale == const Locale('en') ? 'english' : 'arabic'}')
         .then((result) {
       result == AppMessage.loaded &&
               provider!.read(storyProvider).story.data!.story!.isNotEmpty
@@ -71,6 +70,21 @@ class _LevelsMainState extends State<LevelsMain> {
     'القناعة',
     'تحمل المسؤولية',
     'الرفق'
+  ];
+
+  List<String> adjEn = [
+    'Honest',
+    'Helping',
+    'Forgiveness',
+    'Generosity',
+    'Patience',
+    'Respect',
+    'Friendship',
+    'Positivity',
+    'Sharing',
+    'Conviction',
+    'Taking responsibility',
+    'Kindness'
   ];
   @override
   Widget build(BuildContext context) {
@@ -110,7 +124,10 @@ class _LevelsMainState extends State<LevelsMain> {
                       (i) => InkWell(
                             onTap: () async {
                               AppDialog.showLoading(context: context);
-                              await loadData(subject: adj[i]);
+                              await loadData(
+                                  subject: MyApp.locale == const Locale('en')
+                                      ? adjEn[i]
+                                      : adj[i]);
                             },
                             child: Container(
                               decoration: BoxDecoration(
@@ -138,7 +155,12 @@ class _LevelsMainState extends State<LevelsMain> {
                                     child: Flexible(
                                         flex: 1,
                                         child: AppText(
-                                          text: i == 0 ? adj[i] : '',
+                                          text: i == 0
+                                              ? MyApp.locale ==
+                                                      const Locale('en')
+                                                  ? adjEn[i]
+                                                  : adj[i]
+                                              : '',
                                           color: AppColor.darkGray,
                                           fontSize: AppSize.textSize,
                                         )),

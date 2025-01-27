@@ -6,6 +6,7 @@ import 'package:custom_story/components/AppIcons.dart';
 import 'package:custom_story/components/AppRoutes.dart';
 import 'package:custom_story/components/AppSize.dart';
 import 'package:custom_story/generated/assets.dart';
+import 'package:custom_story/main.dart';
 import 'package:custom_story/screens/Home/story_type/cutom_story_type.dart';
 import 'package:custom_story/screens/Story/llevels_main.dart';
 import 'package:custom_story/screens/quotes/random_quote.dart';
@@ -29,6 +30,13 @@ class _ChooseTypeState extends State<ChooseType> {
 
   @override
   void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      MyApp.getLocale(context: context).then((v) {
+        print(MyApp.locale);
+        setState(() {});
+      });
+    });
+
     super.initState();
   }
 
@@ -37,14 +45,47 @@ class _ChooseTypeState extends State<ChooseType> {
     return Scaffold(
       appBar: AppBarWidget(
           text: AppLocalizations.of(context)!.customStory,
+          directionality: TextDirection.ltr,
           actions: [
-            IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  AppIcons.globe,
-                  color: Colors.white,
-                  size: AppSize.appBarIconsSize,
-                ))
+            Visibility(
+              visible: MyApp.locale != null,
+              child: Transform.translate(
+                offset: Offset(30.w, 0),
+                child: DropdownMenu(
+                    leadingIcon: Icon(
+                      AppIcons.globe,
+                      color: Colors.white,
+                      size: AppSize.appBarIconsSize,
+                    ),
+                    width: 80.w,
+                    trailingIcon: Icon(
+                      AppIcons.forwardArrow,
+                      color: AppColor.noColor,
+                    ),
+                    selectedTrailingIcon: Icon(
+                      AppIcons.forwardArrow,
+                      color: AppColor.noColor,
+                    ),
+                    menuStyle: MenuStyle(
+                        shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+                      const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.zero),
+                    )),
+                    onSelected: (value) {
+                      MyApp.setLocale(context: context, code: value!);
+                      setState(() {
+                        MyApp.locale = Locale(value);
+                      });
+                    },
+                    inputDecorationTheme: const InputDecorationTheme(
+                        border:
+                            OutlineInputBorder(borderSide: BorderSide.none)),
+                    dropdownMenuEntries: const [
+                      DropdownMenuEntry(label: 'en', value: 'en'),
+                      DropdownMenuEntry(label: 'ar', value: 'ar')
+                    ]),
+              ),
+            ),
           ],
           textColor: Colors.white,
           centerTitle: true,
