@@ -1,4 +1,5 @@
 import 'package:audioplayers/audioplayers.dart';
+import 'package:custom_story/Widget/AppDialog.dart';
 import 'package:custom_story/Widget/AppText.dart';
 import 'package:custom_story/components/AppIcons.dart';
 import 'package:custom_story/components/AppSize.dart';
@@ -13,6 +14,10 @@ import '../../../Widget/AppBar.dart';
 import '../../../components/AppColor.dart';
 import '../../BackEnd/provider_instance.dart';
 import '../../components/AppMessage.dart';
+import '../../main.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../Story/llevels_main.dart';
 
 class RandomQuote extends StatefulWidget {
   const RandomQuote({super.key});
@@ -23,8 +28,6 @@ class RandomQuote extends StatefulWidget {
 
 class _RandomQuoteState extends State<RandomQuote> {
   ProviderContainer? provider;
-  bool loading = false;
-
   final player = AudioPlayer();
 
   @override
@@ -36,20 +39,16 @@ class _RandomQuoteState extends State<RandomQuote> {
   }
 
   loadData() async {
-    setState(() {
-      loading = true;
-    });
+    AppDialog.showLoading(context: context);
     await provider!
         .read(storyProvider)
         .getQuote(
             text:
-                'اكتب جملة تشجيعية واحدة phrase من عشر كلمات ليس مصفوفة فقط بصيغة json عشوائية لطفل باللغة العربية')
+                'اكتب جملة تشجيعية واحدة phrase من عشر كلمات ليس مصفوفة فقط بصيغة json عشوائية لطفل باللغة ${MyApp.locale == const Locale('en') ? 'الانجليزية' : 'العربية'}')
         .then((result) async {
       await player.play(AssetSource('sound/clapping.mp3'));
-
-      setState(() {
-        loading = false;
-      });
+      Navigator.pop(cc!);
+      setState(() {});
       result == AppMessage.loaded &&
               provider!.read(storyProvider).quote.data != null
           ? null
@@ -67,8 +66,7 @@ class _RandomQuoteState extends State<RandomQuote> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarWidget(
-          text: 'عبارة تشجيعية',
-          actions: [],
+          text: AppLocalizations.of(context)!.encouragementMessage,
           leading: IconButton(
               onPressed: () {
                 Navigator.pop(context);
@@ -83,36 +81,32 @@ class _RandomQuoteState extends State<RandomQuote> {
         width: MediaQuery.of(context).size.width,
         padding: EdgeInsets.all(15.r),
         decoration: BoxDecoration(
-          color: AppColor.yellow.withOpacity(.2),
-        ),
-        child: loading
-            ? Center(
-                child: LottieBuilder.asset(
-                  'assets/lottie/raffle.json',
-                  height: 250.h,
-                ),
-              )
-            : Stack(
-                fit: StackFit.expand,
-                children: [
-                  LottieBuilder.asset(
-                    'assets/lottie/celebrate.json',
-                  ),
-                  Center(
-                    child: AppText(
-                      text: ProviderScope.containerOf(context)
-                              .read(storyProvider)
-                              .quote
-                              .data
-                              ?.encouragement ??
-                          'انت شخص رائع',
-                      overflow: TextOverflow.visible,
-                      align: TextAlign.center,
-                      fontSize: AppSize.textSize,
-                    ),
-                  ),
-                ],
+            image: DecorationImage(
+                fit: BoxFit.cover,
+                image: Image.asset(
+                  Assets.backgroundMain,
+                ).image)),
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            LottieBuilder.asset(
+              'assets/lottie/celebrate.json',
+            ),
+            Center(
+              child: AppText(
+                text: ProviderScope.containerOf(context)
+                        .read(storyProvider)
+                        .quote
+                        .data
+                        ?.encouragement ??
+                    'انت شخص رائع',
+                overflow: TextOverflow.visible,
+                align: TextAlign.center,
+                fontSize: AppSize.textSize,
               ),
+            ),
+          ],
+        ),
       ),
     );
   }

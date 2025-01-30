@@ -9,6 +9,7 @@ import 'package:custom_story/main.dart';
 import 'package:custom_story/screens/Story/read_story.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../Widget/AppSnackBar.dart';
@@ -50,10 +51,13 @@ class _LevelsMainState extends State<LevelsMain> {
               AppRoutes.pushReplacementTo(
                   context, noAnimation: true, const LearntMorals());
             })
-          : AppSnackBar.showInSnackBar(
-              context: context,
-              message: AppMessage.tryAgainSthWrong,
-              isSuccessful: false);
+          : {
+              Navigator.pop(cc!),
+              AppSnackBar.showInSnackBar(
+                  context: context,
+                  message: AppMessage.tryAgainSthWrong,
+                  isSuccessful: false)
+            };
     });
   }
 
@@ -91,12 +95,11 @@ class _LevelsMainState extends State<LevelsMain> {
     return Scaffold(
       appBar: AppBarWidget(
           text: '',
-          actions: [],
-          leading: IconButton(
-              onPressed: () {
+          leading: InkWell(
+              onTap: () {
                 Navigator.pop(context);
               },
-              icon: Icon(AppIcons.backArrow)),
+              child: Icon(AppIcons.backArrow)),
           textColor: Colors.white,
           centerTitle: true,
           showActions: false,

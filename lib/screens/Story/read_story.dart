@@ -4,6 +4,7 @@ import 'package:custom_story/components/AppColor.dart';
 import 'package:custom_story/components/AppIcons.dart';
 import 'package:custom_story/components/AppSize.dart';
 import 'package:custom_story/generated/assets.dart';
+import 'package:custom_story/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -59,10 +60,13 @@ class _ReadStoryState extends State<ReadStory> {
                   children: [
                     Padding(
                       padding: EdgeInsets.only(
+                        right: MyApp.locale == const Locale('ar') ? 15.w : 0,
                         left: 15.w,
                       ),
                       child: Align(
-                        alignment: Alignment.bottomLeft,
+                        alignment: MyApp.locale == const Locale('ar')
+                            ? Alignment.bottomRight
+                            : Alignment.bottomLeft,
                         child: IconButton(
                           icon: Icon(
                             AppIcons.backArrow,
@@ -77,7 +81,9 @@ class _ReadStoryState extends State<ReadStory> {
                     ),
                     Flexible(
                       child: Padding(
-                        padding: EdgeInsets.only(left: 5.w),
+                        padding: EdgeInsets.only(
+                            right: MyApp.locale == const Locale('ar') ? 5.w : 0,
+                            left: MyApp.locale == const Locale('ar') ? 0 : 5.w),
                         child: RawScrollbar(
                             controller: scrollController,
                             thumbVisibility: true,
@@ -86,7 +92,13 @@ class _ReadStoryState extends State<ReadStory> {
                             child: SingleChildScrollView(
                               controller: scrollController,
                               child: Padding(
-                                padding: EdgeInsets.only(right: 13.w),
+                                padding: EdgeInsets.only(
+                                    left: MyApp.locale == const Locale('ar')
+                                        ? 13.w
+                                        : 0,
+                                    right: MyApp.locale == const Locale('ar')
+                                        ? 0
+                                        : 13.w),
                                 child: SizedBox(
                                   width: 265.w,
                                   child: Column(
@@ -98,13 +110,12 @@ class _ReadStoryState extends State<ReadStory> {
                                                 .data!
                                                 .title ??
                                             '',
-                                        fontSize: AppSize.titleSize,
+                                        fontSize: AppSize.titleSize - 0.5,
                                         align: TextAlign.center,
                                         textHeight: 2.5,
                                         color:
                                             AppColor.darkGray.withOpacity(0.9),
                                         fontWeight: FontWeight.bold,
-                                        textDirection: TextDirection.rtl,
                                         overflow: TextOverflow.visible,
                                       ),
                                       SizedBox(
@@ -117,10 +128,9 @@ class _ReadStoryState extends State<ReadStory> {
                                                 .data!
                                                 .story ??
                                             '',
-                                        fontSize: AppSize.textSize,
+                                        fontSize: AppSize.textSize + 1,
                                         align: TextAlign.justify,
                                         textHeight: 2.4,
-                                        textDirection: TextDirection.rtl,
                                         overflow: TextOverflow.visible,
                                       ),
                                     ],

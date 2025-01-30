@@ -17,6 +17,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../BackEnd/provider_instance.dart';
+
 class ChooseType extends StatefulWidget {
   const ChooseType({super.key});
 
@@ -165,7 +167,12 @@ class _ChooseTypeState extends State<ChooseType> {
                             ),
                             AppButtons(
                               onPressed: () {
-                                AppRoutes.pushTo(context, const RandomQuote());
+                                AppRoutes.pushThenRefresh(context, const RandomQuote(), then: (v){
+                                  ProviderScope.containerOf(context)
+                                    .read(storyProvider)
+                                    .quote
+                                    .data
+                                    ?.encouragement = null;});
                               },
                               text: AppLocalizations.of(context)!
                                   .encouragementMessage,
