@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import '../components/AppConstants.dart';
 import '../components/AppMessage.dart';
 import 'class_models.dart';
@@ -16,6 +17,27 @@ class StoryProviderClass extends ChangeNotifier {
   DataHandle<Encouragement> quote = DataHandle(
     result: AppMessage.initial,
   );
+
+  int lastIndex = 1;
+  DateTime lastDate = DateTime.now().subtract(Duration(days: 1));
+
+  setPreferences({required int lastIndex, required DateTime date}) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setInt('lastIndex', lastIndex + 1);
+    pref.setString('lastDate', date.toString());
+    lastIndex = lastIndex + 1;
+    lastDate = date;
+    notifyListeners();
+  }
+
+  getPreferences() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    lastIndex = pref.getInt('lastIndex') ?? 1;
+    lastDate = (pref.getString('lastDate') == null
+        ? DateTime.now().subtract(Duration(days: 1))
+        : DateTime.parse(pref.getString('lastDate')!)!)!;
+    notifyListeners();
+  }
 
   ///get order=============================================================================================================================================================================================================
   Future getStory({required String text}) async {

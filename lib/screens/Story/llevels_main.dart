@@ -32,13 +32,15 @@ class _LevelsMainState extends State<LevelsMain> {
 
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       provider = ProviderScope.containerOf(context);
+      await provider?.read(storyProvider).getPreferences();
+      setState(() {});
     });
     super.initState();
   }
 
-  loadData({required String subject}) async {
+  loadData({required String subject, required int index}) async {
     await provider!
         .read(storyProvider)
         .getStory(
@@ -48,6 +50,10 @@ class _LevelsMainState extends State<LevelsMain> {
       result == AppMessage.loaded &&
               provider!.read(storyProvider).story.data!.story!.isNotEmpty
           ? AppRoutes.pushThenRefresh(context, const ReadStory(), then: (v) {
+              print(index);
+              provider!
+                  .read(storyProvider)
+                  .setPreferences(lastIndex: index, date: DateTime.now());
               AppRoutes.pushReplacementTo(
                   context, noAnimation: true, const LearntMorals());
             })
@@ -126,11 +132,31 @@ class _LevelsMainState extends State<LevelsMain> {
                       12,
                       (i) => InkWell(
                             onTap: () async {
-                              AppDialog.showLoading(context: context);
-                              await loadData(
-                                  subject: MyApp.locale == const Locale('en')
-                                      ? adjEn[i]
-                                      : adj[i]);
+                              // provider != null &&
+                              //         (DateTime.now().isAfter(provider!
+                              //                 .read(storyProvider)
+                              //                 .lastDate!
+                              //                 .add(const Duration(days: 1))) &&
+                              //             i <
+                              //                 (provider
+                              //                         ?.read(storyProvider)
+                              //                         .lastIndex ??
+                              //                     0))
+                              i <=
+                                  (provider
+                                      ?.read(storyProvider)
+                                      .lastIndex ??
+                                      0)
+                                  ? {
+                                      AppDialog.showLoading(context: context),
+                                      await loadData(
+                                          subject:
+                                              MyApp.locale == const Locale('en')
+                                                  ? adjEn[i]
+                                                  : adj[i],
+                                          index: i)
+                                    }
+                                  : null;
                             },
                             child: Container(
                               decoration: BoxDecoration(
@@ -145,7 +171,11 @@ class _LevelsMainState extends State<LevelsMain> {
                                       flex: 2,
                                       child: Image.asset(
                                         'assets/images/book.png',
-                                        color: i == 0
+                                        color:    i <=
+                                            (provider
+                                                ?.read(storyProvider)
+                                                .lastIndex ??
+                                                0)
                                             ? null
                                             : AppColor.lightGrey
                                                 .withOpacity(.4),
@@ -154,11 +184,20 @@ class _LevelsMainState extends State<LevelsMain> {
                                     height: 5.h,
                                   ),
                                   Visibility(
-                                    visible: i == 0,
+                                    visible:   i <=
+                                        (provider
+                                            ?.read(storyProvider)
+                                            .lastIndex ??
+                                            0),
                                     child: Flexible(
                                         flex: 1,
                                         child: AppText(
-                                          text: i == 0
+                                          text:
+                                                  i <=
+                                                      (provider
+                                                          ?.read(storyProvider)
+                                                          .lastIndex ??
+                                                          0)
                                               ? MyApp.locale ==
                                                       const Locale('en')
                                                   ? adjEn[i]
