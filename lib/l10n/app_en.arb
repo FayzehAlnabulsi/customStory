@@ -8,5 +8,6 @@
     "mainCharacterName": "main Character's Name",
     "createStory": "create Story",
     "benefits":"benefits",
-    "required":"required field"
+    "required":"required field",
+    "tryAgainSthWrong":"something went wrong please try again later"
 }

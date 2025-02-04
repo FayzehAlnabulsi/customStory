@@ -52,8 +52,7 @@ class AppButtons extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           alignment: alignment,
           shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(
-                  text == AppMessage.tryAgain ? 50.r : (radius ?? 50.r)),
+              borderRadius: BorderRadius.circular((radius ?? 50.r)),
               side: side ?? BorderSide(color: AppColor.pink, width: 0.3)),
           backgroundColor: (backgroundColor ?? AppColor.brown),
           elevation: elevation ?? 0,
@@ -68,11 +67,12 @@ class AppButtons extends StatelessWidget {
         icon: icon ?? const SizedBox(),
         label: label ??
             AppText(
-                fontSize: textSize ?? AppSize.buttonsFontSize,
-                text: text,
-                color: textStyleColor ?? Colors.black.withOpacity(0.5),
-                fontWeight: fontWeight,
-                fontFamily: GoogleFonts.tajawal().fontFamily),
+              fontSize: textSize ?? AppSize.buttonsFontSize,
+              text: text,
+              color: textStyleColor ?? Colors.black.withOpacity(0.5),
+              fontWeight: fontWeight,
+              fontFamily: GoogleFonts.macondo().fontFamily,
+            ),
       ),
     );
   }

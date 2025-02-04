@@ -58,7 +58,7 @@ class _CustomStoryState extends State<CustomStory> {
             })
           : AppSnackBar.showInSnackBar(
               context: context,
-              message: AppMessage.tryAgainSthWrong,
+              message: AppLocalizations.of(context)!.tryAgainSthWrong,
               isSuccessful: false);
     });
   }
@@ -68,7 +68,6 @@ class _CustomStoryState extends State<CustomStory> {
     return Scaffold(
       appBar: AppBarWidget(
           text: AppLocalizations.of(context)!.createStory,
-          actions: [],
           leading: IconButton(
               onPressed: () {
                 Navigator.pop(context);

@@ -17,6 +17,7 @@ import '../../Widget/AppText.dart';
 import '../../components/AppMessage.dart';
 import '../../components/AppRoutes.dart';
 import 'learnt_morals.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 BuildContext? cc;
 
@@ -61,7 +62,7 @@ class _LevelsMainState extends State<LevelsMain> {
               Navigator.pop(cc!),
               AppSnackBar.showInSnackBar(
                   context: context,
-                  message: AppMessage.tryAgainSthWrong,
+                  message: AppLocalizations.of(context)!.tryAgainSthWrong,
                   isSuccessful: false)
             };
     });
@@ -143,10 +144,10 @@ class _LevelsMainState extends State<LevelsMain> {
                               //                         .lastIndex ??
                               //                     0))
                               i <=
-                                  (provider
-                                      ?.read(storyProvider)
-                                      .lastIndex ??
-                                      0)
+                                      (provider
+                                              ?.read(storyProvider)
+                                              .lastIndex ??
+                                          0)
                                   ? {
                                       AppDialog.showLoading(context: context),
                                       await loadData(
@@ -171,11 +172,11 @@ class _LevelsMainState extends State<LevelsMain> {
                                       flex: 2,
                                       child: Image.asset(
                                         'assets/images/book.png',
-                                        color:    i <=
-                                            (provider
-                                                ?.read(storyProvider)
-                                                .lastIndex ??
-                                                0)
+                                        color: i <=
+                                                (provider
+                                                        ?.read(storyProvider)
+                                                        .lastIndex ??
+                                                    0)
                                             ? null
                                             : AppColor.lightGrey
                                                 .withOpacity(.4),
@@ -184,20 +185,19 @@ class _LevelsMainState extends State<LevelsMain> {
                                     height: 5.h,
                                   ),
                                   Visibility(
-                                    visible:   i <=
+                                    visible: i <=
                                         (provider
-                                            ?.read(storyProvider)
-                                            .lastIndex ??
+                                                ?.read(storyProvider)
+                                                .lastIndex ??
                                             0),
                                     child: Flexible(
                                         flex: 1,
                                         child: AppText(
-                                          text:
-                                                  i <=
-                                                      (provider
+                                          text: i <=
+                                                  (provider
                                                           ?.read(storyProvider)
                                                           .lastIndex ??
-                                                          0)
+                                                      0)
                                               ? MyApp.locale ==
                                                       const Locale('en')
                                                   ? adjEn[i]

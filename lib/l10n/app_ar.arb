@@ -8,5 +8,6 @@
   "mainCharacterName": "اسم بطل/ة القصة",
   "createStory": "إنشاء قصة",
   "benefits":"المستفاد من القصة",
-  "required":"حقل اجباري"
+  "required":"حقل اجباري",
+  "tryAgainSthWrong":"حدث خطأ ما حاول لاحقا"
 }

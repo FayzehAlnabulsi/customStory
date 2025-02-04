@@ -24,7 +24,8 @@ class AppSnackBar extends StatelessWidget {
       double? bottomPadding}) {
     var snackBar = SnackBar(
       content: Container(
-        padding: EdgeInsets.only(top: 15.w, bottom: 15.w, right: 8.w),
+        padding:
+            EdgeInsets.only(top: 15.w, bottom: 15.w, right: 8.w, left: 8.w),
         decoration: BoxDecoration(
             color: isSuccessful
                 ? AppColor.green.withOpacity(0.08)
@@ -35,7 +36,7 @@ class AppSnackBar extends StatelessWidget {
               color: isSuccessful ? AppColor.green : AppColor.white,
             )),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(

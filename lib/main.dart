@@ -2,6 +2,7 @@ import 'package:custom_story/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'components/AppMessage.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -38,9 +39,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: MyHomePage(),
+      theme: ThemeData(
+        fontFamily: GoogleFonts.macondo().fontFamily,
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+            textStyle: TextStyle(
+              fontFamily: GoogleFonts.macondo().fontFamily,
+            ),
+          ),
+        ),
+      ),
+      home: const MyHomePage(),
     );
   }
 }
