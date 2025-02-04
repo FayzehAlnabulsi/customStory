@@ -23,9 +23,9 @@ class StoryProviderClass extends ChangeNotifier {
 
   setPreferences({required int lastIndex, required DateTime date}) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
-    pref.setInt('lastIndex', lastIndex + 1);
+    pref.setInt('lastIndex', lastIndex + 2);
     pref.setString('lastDate', date.toString());
-    lastIndex = lastIndex + 1;
+    lastIndex = lastIndex + 2;
     lastDate = date;
     notifyListeners();
   }

@@ -143,7 +143,7 @@ class _LevelsMainState extends State<LevelsMain> {
                               //                         ?.read(storyProvider)
                               //                         .lastIndex ??
                               //                     0))
-                              i <=
+                              i <
                                       (provider
                                               ?.read(storyProvider)
                                               .lastIndex ??
@@ -172,7 +172,7 @@ class _LevelsMainState extends State<LevelsMain> {
                                       flex: 2,
                                       child: Image.asset(
                                         'assets/images/book.png',
-                                        color: i <=
+                                        color: i <
                                                 (provider
                                                         ?.read(storyProvider)
                                                         .lastIndex ??
@@ -185,7 +185,7 @@ class _LevelsMainState extends State<LevelsMain> {
                                     height: 5.h,
                                   ),
                                   Visibility(
-                                    visible: i <=
+                                    visible: i <
                                         (provider
                                                 ?.read(storyProvider)
                                                 .lastIndex ??
@@ -193,7 +193,7 @@ class _LevelsMainState extends State<LevelsMain> {
                                     child: Flexible(
                                         flex: 1,
                                         child: AppText(
-                                          text: i <=
+                                          text: i <
                                                   (provider
                                                           ?.read(storyProvider)
                                                           .lastIndex ??
