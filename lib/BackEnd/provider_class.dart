@@ -21,12 +21,17 @@ class StoryProviderClass extends ChangeNotifier {
   int lastIndex = 1;
   DateTime lastDate = DateTime.now().subtract(Duration(days: 1));
 
-  setPreferences({required int lastIndex, required DateTime date}) async {
+  setPreferences({required int newIndex, required DateTime date}) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
-    pref.setInt('lastIndex', lastIndex + 2);
-    pref.setString('lastDate', date.toString());
-    lastIndex = lastIndex + 2;
-    lastDate = date;
+    if (date.isAfter(lastDate.add(const Duration(days: 1))) &&
+        newIndex + 2 > lastIndex) {
+      pref.setInt('lastIndex', newIndex + 2);
+      pref.setString('lastDate', date.toString());
+      lastIndex = newIndex + 2;
+      lastDate = date;
+    } else {
+      print('Oops not today XD');
+    }
     notifyListeners();
   }
 

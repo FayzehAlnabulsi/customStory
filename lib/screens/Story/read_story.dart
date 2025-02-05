@@ -9,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../Widget/AppText.dart';
 import 'llevels_main.dart';
 
@@ -100,7 +101,7 @@ class _ReadStoryState extends State<ReadStory> {
                                         ? 0
                                         : 13.w),
                                 child: SizedBox(
-                                  width: 265.w,
+                                  width: 260.w,
                                   child: Column(
                                     children: [
                                       AppText(
@@ -110,7 +111,8 @@ class _ReadStoryState extends State<ReadStory> {
                                                 .data!
                                                 .title ??
                                             '',
-                                        fontSize: AppSize.titleSize - 0.5,
+                                        fontFamily: GoogleFonts.actor().fontFamily,
+                                        fontSize: AppSize.titleSize +1,
                                         align: TextAlign.center,
                                         textHeight: 2.5,
                                         color:
@@ -128,7 +130,8 @@ class _ReadStoryState extends State<ReadStory> {
                                                 .data!
                                                 .story ??
                                             '',
-                                        fontSize: AppSize.textSize + 1,
+                                        fontFamily: GoogleFonts.actor().fontFamily,
+                                        fontSize: AppSize.textSize + 3,
                                         align: TextAlign.justify,
                                         textHeight: 2.4,
                                         overflow: TextOverflow.visible,

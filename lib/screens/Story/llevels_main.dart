@@ -46,18 +46,20 @@ class _LevelsMainState extends State<LevelsMain> {
         .read(storyProvider)
         .getStory(
             text:
-                'write story about $subject in a json format contains benefits and title in ${MyApp.locale == const Locale('en') ? 'english' : 'arabic'}')
+                'write story about $subject in a json format contains story object and benefits and title in ${MyApp.locale == const Locale('en') ? 'english' : 'arabic'}')
         .then((result) {
       result == AppMessage.loaded &&
               provider!.read(storyProvider).story.data!.story!.isNotEmpty
-          ? AppRoutes.pushThenRefresh(context, const ReadStory(), then: (v) {
-              print(index);
+          ? {
               provider!
                   .read(storyProvider)
-                  .setPreferences(lastIndex: index, date: DateTime.now());
-              AppRoutes.pushReplacementTo(
-                  context, noAnimation: true, const LearntMorals());
-            })
+                  .setPreferences(newIndex: index, date: DateTime.now()),
+              AppRoutes.pushThenRefresh(context, const ReadStory(), then: (v) {
+                print(index);
+                AppRoutes.pushReplacementTo(
+                    context, noAnimation: true, const LearntMorals());
+              })
+            }
           : {
               Navigator.pop(cc!),
               AppSnackBar.showInSnackBar(
@@ -133,21 +135,21 @@ class _LevelsMainState extends State<LevelsMain> {
                       12,
                       (i) => InkWell(
                             onTap: () async {
-                              // provider != null &&
-                              //         (DateTime.now().isAfter(provider!
-                              //                 .read(storyProvider)
-                              //                 .lastDate!
-                              //                 .add(const Duration(days: 1))) &&
-                              //             i <
-                              //                 (provider
-                              //                         ?.read(storyProvider)
-                              //                         .lastIndex ??
-                              //                     0))
-                              i <
-                                      (provider
-                                              ?.read(storyProvider)
-                                              .lastIndex ??
-                                          0)
+                              (provider != null &&
+                                          (DateTime.now().isAfter(provider!
+                                                  .read(storyProvider)
+                                                  .lastDate!
+                                                  .add(const Duration(
+                                                      days: 1))) &&
+                                              i <
+                                                  provider!
+                                                      .read(storyProvider)
+                                                      .lastIndex!) ||
+                                      i <
+                                          provider!
+                                                  .read(storyProvider)
+                                                  .lastIndex! -
+                                              1)
                                   ? {
                                       AppDialog.showLoading(context: context),
                                       await loadData(
@@ -157,7 +159,17 @@ class _LevelsMainState extends State<LevelsMain> {
                                                   : adj[i],
                                           index: i)
                                     }
-                                  : null;
+                                  : i ==
+                                          provider!
+                                                  .read(storyProvider)
+                                                  .lastIndex! -
+                                              1
+                                      ? AppDialog.infoDialogue(
+                                          context: context,
+                                          title: 'waiting for you tomorrow',
+                                          message:
+                                              'To open this level please wait for 24 hours')
+                                      : null;
                             },
                             child: Container(
                               decoration: BoxDecoration(

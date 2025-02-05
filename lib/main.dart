@@ -42,11 +42,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        fontFamily: GoogleFonts.macondo().fontFamily,
+        fontFamily: GoogleFonts.libreBaskerville().fontFamily,
         textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(
             textStyle: TextStyle(
-              fontFamily: GoogleFonts.macondo().fontFamily,
+              fontFamily: GoogleFonts.libreBaskerville().fontFamily,
             ),
           ),
         ),

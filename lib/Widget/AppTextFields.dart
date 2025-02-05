@@ -124,7 +124,7 @@ class AppTextFields extends StatelessWidget {
           errorStyle: TextStyle(
               color: AppColor.error,
               fontSize: AppSize.errorSize,
-              fontFamily: GoogleFonts.macondo().fontFamily),
+              fontFamily: GoogleFonts.libreBaskerville().fontFamily),
           hintStyle: AppText.styleText(
             color: hintColor ?? AppColor.darkGray,
             fontSize: labelSize ?? AppSize.smallSubText,
