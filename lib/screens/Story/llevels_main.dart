@@ -166,9 +166,10 @@ class _LevelsMainState extends State<LevelsMain> {
                                               1
                                       ? AppDialog.infoDialogue(
                                           context: context,
-                                          title: 'waiting for you tomorrow',
-                                          message:
-                                              'To open this level please wait for 24 hours')
+                                          title: AppLocalizations.of(context)!
+                                              .tomorrowTitle,
+                                          message: AppLocalizations.of(context)!
+                                              .tomorrowMessage)
                                       : null;
                             },
                             child: Container(
