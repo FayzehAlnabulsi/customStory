@@ -14,6 +14,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -52,14 +53,14 @@ class _ChooseTypeState extends State<ChooseType> {
             Visibility(
               visible: MyApp.locale != null,
               child: Transform.translate(
-                offset: Offset(30.w, 0),
+                offset: Offset(30.w, 5.h),
                 child: DropdownMenu(
                     leadingIcon: Icon(
                       AppIcons.globe,
                       color: Colors.white,
                       size: AppSize.appBarIconsSize,
                     ),
-                    width: 80.w,
+                    width: 75.w,
                     trailingIcon: Icon(
                       AppIcons.forwardArrow,
                       color: AppColor.noColor,
@@ -79,12 +80,33 @@ class _ChooseTypeState extends State<ChooseType> {
                         MyApp.locale = Locale(value);
                       });
                     },
+                    textStyle: TextStyle(color: AppColor.noColor),
                     inputDecorationTheme: const InputDecorationTheme(
                         border:
                             OutlineInputBorder(borderSide: BorderSide.none)),
-                    dropdownMenuEntries: const [
-                      DropdownMenuEntry(label: 'en', value: 'en'),
-                      DropdownMenuEntry(label: 'ar', value: 'ar')
+                    dropdownMenuEntries: [
+                      DropdownMenuEntry(
+                          label: '  en  ',
+                          value: 'en',
+                          style: TextButton.styleFrom(
+                            textStyle: TextStyle(
+                              fontSize: AppSize.smallSubText - 2,
+                              color: AppColor.darkGray,
+                              fontFamily:
+                                  GoogleFonts.libreBaskerville().fontFamily,
+                            ),
+                          )),
+                      DropdownMenuEntry(
+                          label: '  ar  ',
+                          value: 'ar',
+                          style: TextButton.styleFrom(
+                            textStyle: TextStyle(
+                              fontSize: AppSize.smallSubText,
+                              color: AppColor.darkGray,
+                              fontFamily:
+                                  GoogleFonts.libreBaskerville().fontFamily,
+                            ),
+                          ))
                     ]),
               ),
             ),
@@ -167,12 +189,14 @@ class _ChooseTypeState extends State<ChooseType> {
                             ),
                             AppButtons(
                               onPressed: () {
-                                AppRoutes.pushThenRefresh(context, const RandomQuote(), then: (v){
+                                AppRoutes.pushThenRefresh(
+                                    context, const RandomQuote(), then: (v) {
                                   ProviderScope.containerOf(context)
-                                    .read(storyProvider)
-                                    .quote
-                                    .data
-                                    ?.encouragement = null;});
+                                      .read(storyProvider)
+                                      .quote
+                                      .data
+                                      ?.encouragement = null;
+                                });
                               },
                               text: AppLocalizations.of(context)!
                                   .encouragementMessage,

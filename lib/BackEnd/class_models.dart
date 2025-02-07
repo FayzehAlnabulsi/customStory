@@ -30,7 +30,7 @@ class Story {
     return Story(
       title: json["title"],
       story: json["story"],
-      moral: json["benefits"] == null
+      moral: json["benefits"] == null || json["benefits"] is List<String>
           ? <String>[]
           : List<String>.from(json["benefits"]!.map((x) => x)),
     );

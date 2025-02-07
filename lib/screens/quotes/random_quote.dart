@@ -46,9 +46,10 @@ class _RandomQuoteState extends State<RandomQuote> {
             text:
                 'اكتب جملة تشجيعية واحدة phrase من عشر كلمات ليس مصفوفة فقط بصيغة json عشوائية لطفل باللغة ${MyApp.locale == const Locale('en') ? 'الانجليزية' : 'العربية'}')
         .then((result) async {
-      await player.play(AssetSource('sound/clapping.mp3'));
       Navigator.pop(cc!);
       setState(() {});
+      await player.play(AssetSource('sound/clapping.mp3'));
+
       result == AppMessage.loaded &&
               provider!.read(storyProvider).quote.data != null
           ? null
@@ -66,7 +67,7 @@ class _RandomQuoteState extends State<RandomQuote> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarWidget(
-          text: AppLocalizations.of(context)!.encouragementMessage,
+          text: '',
           leading: IconButton(
               onPressed: () {
                 Navigator.pop(context);

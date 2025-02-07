@@ -46,7 +46,7 @@ class _LevelsMainState extends State<LevelsMain> {
         .read(storyProvider)
         .getStory(
             text:
-                'write story about $subject in a json format contains story object and benefits and title in ${MyApp.locale == const Locale('en') ? 'english' : 'arabic'}')
+                'write story about $subject in a json format contains title and story and list of strings benefits in ${MyApp.locale == const Locale('en') ? 'english' : 'arabic'}')
         .then((result) {
       result == AppMessage.loaded &&
               provider!.read(storyProvider).story.data!.story!.isNotEmpty
@@ -108,7 +108,13 @@ class _LevelsMainState extends State<LevelsMain> {
               onTap: () {
                 Navigator.pop(context);
               },
-              child: Icon(AppIcons.backArrow)),
+              child: Padding(
+                padding: EdgeInsets.only(
+                  left: MyApp.locale == const Locale('en') ? 7.w : 0,
+                  right: MyApp.locale == const Locale('en') ? 0 : 7.w,
+                ),
+                child: Icon(AppIcons.backArrow),
+              )),
           textColor: Colors.white,
           centerTitle: true,
           showActions: false,
@@ -169,7 +175,9 @@ class _LevelsMainState extends State<LevelsMain> {
                                           title: AppLocalizations.of(context)!
                                               .tomorrowTitle,
                                           message: AppLocalizations.of(context)!
-                                              .tomorrowMessage)
+                                              .tomorrowMessage,
+                                          lottie:
+                                              'assets/lottie/wait24json.json')
                                       : null;
                             },
                             child: Container(

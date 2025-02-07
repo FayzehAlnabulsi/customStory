@@ -32,7 +32,8 @@ class AppDialog {
         });
   }
 
-  static infoDialogue({required context, String? message, String? title}) {
+  static infoDialogue(
+      {required context, String? message, String? title, String? lottie}) {
     return showDialog(
         barrierDismissible: false,
         barrierColor: AppColor.noColor,
@@ -40,7 +41,7 @@ class AppDialog {
         builder: (cont) {
           cc = cont;
           return Padding(
-            padding: EdgeInsets.symmetric(horizontal: 50.w),
+            padding: EdgeInsets.symmetric(horizontal: 40.w),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -52,7 +53,7 @@ class AppDialog {
                     child: Column(
                       children: [
                         Container(
-                          height: 40.h,
+                          height: 45.h,
                           decoration: BoxDecoration(
                               color: AppColor.brown,
                               borderRadius: BorderRadius.only(
@@ -80,7 +81,7 @@ class AppDialog {
                               ),
                               AppText(
                                   text: title ?? '',
-                                  fontSize: AppSize.appBarTextSize - 1,
+                                  fontSize: AppSize.appBarTextSize ,
                                   color: AppColor.white,
                                   textDecoration: TextDecoration.none),
                               SizedBox(
@@ -90,15 +91,28 @@ class AppDialog {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 10.w, vertical: 30.h),
+                          padding: EdgeInsets.only(
+                            left: 15.w,
+                            top: 30.h,
+                            right: 15.w,
+                          ),
                           child: AppText(
                             text: message ?? '',
                             fontSize: AppSize.subTitle,
                             color: AppColor.darkGray,
+                            overflow: TextOverflow.visible,
+                            align: TextAlign.center,
                             textDecoration: TextDecoration.none,
                           ),
                         ),
+                        Visibility(
+                            visible: lottie != null,
+                            child: Transform.translate(
+                                offset: Offset(0, -25.h),
+                                child: LottieBuilder.asset(
+                                  lottie ?? '',
+                                  height: 200.h,
+                                )))
                       ],
                     ))
               ],

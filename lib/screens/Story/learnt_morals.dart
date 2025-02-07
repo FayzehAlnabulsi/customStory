@@ -18,6 +18,7 @@ class LearntMorals extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _LearntMoralsState();
 }
+
 //
 class _LearntMoralsState extends State<LearntMorals> {
   @override
@@ -55,11 +56,19 @@ class _LearntMoralsState extends State<LearntMorals> {
               shrinkWrap: true,
               padding: EdgeInsets.only(top: 20.h),
               itemCount: ProviderScope.containerOf(context)
-                  .read(storyProvider)
-                  .story
-                  .data!
-                  .moral!
-                  .length,
+                          .read(storyProvider)
+                          .story
+                          .data!
+                          .moral!
+                          .length >
+                      4
+                  ? 4
+                  : ProviderScope.containerOf(context)
+                      .read(storyProvider)
+                      .story
+                      .data!
+                      .moral!
+                      .length,
               itemBuilder: (context, i) => Padding(
                 padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
                 child: Row(

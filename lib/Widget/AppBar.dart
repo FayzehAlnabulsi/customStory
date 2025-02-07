@@ -65,10 +65,10 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
               ),
             ),
             leading: Padding(
-              padding: EdgeInsets.only(top: 5.h),
+              padding: EdgeInsets.only(top: 5.spMin),
               child: leading,
             ),
-            leadingWidth: leadingWidth??40.w,
+            leadingWidth: leadingWidth??40.spMin,
             actions: actions ??
                 [
                   showActions == false
