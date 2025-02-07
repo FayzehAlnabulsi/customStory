@@ -7,7 +7,7 @@ import 'package:custom_story/components/AppRoutes.dart';
 import 'package:custom_story/components/AppSize.dart';
 import 'package:custom_story/generated/assets.dart';
 import 'package:custom_story/main.dart';
-import 'package:custom_story/screens/Home/story_type/cutom_story_type.dart';
+import 'package:custom_story/screens/Story/cutom_story_type.dart';
 import 'package:custom_story/screens/Story/llevels_main.dart';
 import 'package:custom_story/screens/quotes/random_quote.dart';
 import 'package:flutter/cupertino.dart';

@@ -13,11 +13,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../Widget/AppBar.dart';
-import '../../../components/AppColor.dart';
-import '../../../main.dart';
-import '../../Story/learnt_morals.dart';
-import '../../Story/read_story.dart';
+import '../../Widget/AppBar.dart';
+import '../../components/AppColor.dart';
+import '../../main.dart';
+import 'learnt_morals.dart';
+import 'read_story.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CustomStory extends StatefulWidget {
