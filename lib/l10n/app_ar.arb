@@ -11,5 +11,6 @@
   "required":"حقل اجباري",
   "tryAgainSthWrong":"حدث خطأ ما حاول لاحقا",
   "tomorrowTitle":"ننتظرك غدا",
-  "tomorrowMessage":"لقراءة هذه المرحلة الرجاء الانتظار ٢٤ ساعة"
+  "tomorrowMessage":"لقراءة هذه المرحلة الرجاء الانتظار ٢٤ ساعة",
+  "favorites":"المفضلة"
 }

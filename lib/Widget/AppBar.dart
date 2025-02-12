@@ -65,10 +65,13 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
               ),
             ),
             leading: Padding(
-              padding: EdgeInsets.only(top: 5.spMin),
+              padding: EdgeInsets.only(
+                  top: 5.spMin,
+                  left: MyApp.locale == const Locale('en') ? 5.w : 0,
+                  right: MyApp.locale == const Locale('en') ? 0 : 5.w),
               child: leading,
             ),
-            leadingWidth: leadingWidth??40.spMin,
+            leadingWidth: leadingWidth ?? 40.spMin,
             actions: actions ??
                 [
                   showActions == false

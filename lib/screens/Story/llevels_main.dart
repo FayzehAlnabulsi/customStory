@@ -82,7 +82,7 @@ class _LevelsMainState extends State<LevelsMain> {
     'الوفاء',
     'القناعة',
     'تحمل المسؤولية',
-    'الرفق'
+    'الرفق',
   ];
 
   List<String> adjEn = [

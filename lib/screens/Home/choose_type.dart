@@ -7,6 +7,7 @@ import 'package:custom_story/components/AppRoutes.dart';
 import 'package:custom_story/components/AppSize.dart';
 import 'package:custom_story/generated/assets.dart';
 import 'package:custom_story/main.dart';
+import 'package:custom_story/screens/Favorites/favorites_main.dart';
 import 'package:custom_story/screens/Story/cutom_story_type.dart';
 import 'package:custom_story/screens/Story/llevels_main.dart';
 import 'package:custom_story/screens/quotes/random_quote.dart';
@@ -139,22 +140,19 @@ class _ChooseTypeState extends State<ChooseType> {
               Flexible(
                 flex: 2,
                 child: Padding(
-                  padding: EdgeInsets.only(bottom: 20.h),
+                  padding: EdgeInsets.only(bottom: 60.spMin),
                   child: Stack(
                     children: [
                       Container(
-                        height: 370.h,
                         decoration: BoxDecoration(
                             color: Colors.white.withOpacity(0.6),
                             borderRadius: BorderRadius.circular(10.r)),
                       ),
                       Padding(
-                        padding: EdgeInsets.all(10.r),
+                        padding: EdgeInsets.all(13.spMin),
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            SizedBox(
-                              height: 50.h,
-                            ),
                             AppText(
                               text: AppLocalizations.of(context)!.mainTitle,
                               fontSize: AppSize.titleSize,
@@ -163,7 +161,7 @@ class _ChooseTypeState extends State<ChooseType> {
                               align: TextAlign.center,
                             ),
                             SizedBox(
-                              height: 35.h,
+                              height: 25.h,
                             ),
                             AppButtons(
                               onPressed: () {
@@ -174,7 +172,7 @@ class _ChooseTypeState extends State<ChooseType> {
                               backgroundColor: AppColor.pink,
                             ),
                             SizedBox(
-                              height: 15.h,
+                              height: 13.h,
                             ),
                             AppButtons(
                               onPressed: () {
@@ -185,7 +183,7 @@ class _ChooseTypeState extends State<ChooseType> {
                               backgroundColor: AppColor.blue,
                             ),
                             SizedBox(
-                              height: 15.h,
+                              height: 13.h,
                             ),
                             AppButtons(
                               onPressed: () {
@@ -202,6 +200,18 @@ class _ChooseTypeState extends State<ChooseType> {
                                   .encouragementMessage,
                               width: double.infinity,
                               backgroundColor: AppColor.green,
+                            ),
+                            SizedBox(
+                              height: 13.h,
+                            ),
+                            AppButtons(
+                              onPressed: () {
+                                AppRoutes.pushTo(
+                                    context, const FavoritesMain());
+                              },
+                              text: AppLocalizations.of(context)!.favorites,
+                              width: double.infinity,
+                              backgroundColor: AppColor.purple.withOpacity(.6),
                             )
                           ],
                         ),

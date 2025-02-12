@@ -11,5 +11,6 @@
     "required":"required field",
     "tryAgainSthWrong":"something went wrong please try again later",
     "tomorrowTitle":"waiting for you tomorrow",
-    "tomorrowMessage":"To open this level please wait for 24 hours"
+    "tomorrowMessage":"To open this level please wait for 24 hours",
+    "favorites":"Favorites"
 }
