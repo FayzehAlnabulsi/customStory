@@ -33,7 +33,7 @@ class AppDialog {
   }
 
   static infoDialogue(
-      {required context, String? message, String? title, String? lottie}) {
+      {required context, String? message, String? title, String? lottie, Widget? child}) {
     return showDialog(
         barrierDismissible: false,
         barrierColor: AppColor.noColor,
@@ -85,7 +85,7 @@ class AppDialog {
                                   color: AppColor.white,
                                   textDecoration: TextDecoration.none),
                               SizedBox(
-                                width: 50.w,
+                                width: 30.w,
                               )
                             ],
                           ),
@@ -112,7 +112,10 @@ class AppDialog {
                                 child: LottieBuilder.asset(
                                   lottie ?? '',
                                   height: 200.h,
-                                )))
+                                ))),
+                        Visibility(
+                            visible: child != null,
+                            child: child??SizedBox())
                       ],
                     ))
               ],

@@ -11,4 +11,6 @@ class AppIcons {
   static IconData fail = FluentIcons.dismiss_20_regular;
   static IconData globe = FluentIcons.globe_12_filled;
   static IconData favorite = FluentIcons.star_12_filled;
+  static IconData book = FluentIcons.book_open_16_filled;
+  static IconData delete = FluentIcons.delete_12_filled;
 }

@@ -12,5 +12,10 @@
     "tryAgainSthWrong":"something went wrong please try again later",
     "tomorrowTitle":"waiting for you tomorrow",
     "tomorrowMessage":"To open this level please wait for 24 hours",
-    "favorites":"Favorites"
+    "favorites":"Favorites",
+    "cancel":"cancel",
+    "delete":"delete",
+    "confirm":"confirm",
+    "confirmDeleteTitle":"confirm delete",
+    "confirmDeleteContent":"Are sure you want to delete from favorites?"
 }

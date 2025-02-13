@@ -12,5 +12,10 @@
   "tryAgainSthWrong":"حدث خطأ ما حاول لاحقا",
   "tomorrowTitle":"ننتظرك غدا",
   "tomorrowMessage":"لقراءة هذه المرحلة الرجاء الانتظار ٢٤ ساعة",
-  "favorites":"المفضلة"
+  "favorites":"المفضلة",
+  "cancel":"إلغاء",
+  "confirm":"تأكيد",
+  "delete":"حذف",
+  "confirmDeleteTitle":"تأكيد الحذف",
+  "confirmDeleteContent":"هل انت متأكد من انك تريد الحذف؟"
 }

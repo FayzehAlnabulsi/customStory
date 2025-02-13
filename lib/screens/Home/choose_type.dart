@@ -77,9 +77,6 @@ class _ChooseTypeState extends State<ChooseType> {
                     )),
                     onSelected: (value) {
                       MyApp.setLocale(context: context, code: value!);
-                      setState(() {
-                        MyApp.locale = Locale(value);
-                      });
                     },
                     textStyle: TextStyle(color: AppColor.noColor),
                     inputDecorationTheme: const InputDecorationTheme(
