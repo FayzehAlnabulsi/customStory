@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../main.dart';
+
 class AppText extends StatelessWidget {
   final String text;
   final TextAlign? align;
@@ -43,7 +45,10 @@ class AppText extends StatelessWidget {
       style: TextStyle(
           color: color,
           overflow: overflow ?? TextOverflow.ellipsis,
-          fontFamily: fontFamily ?? GoogleFonts.libreBaskerville().fontFamily,
+          fontFamily: fontFamily ??
+              (MyApp.locale != null && MyApp.locale == const Locale('ar')
+                  ? GoogleFonts.almarai().fontFamily
+                  : GoogleFonts.libreBaskerville().fontFamily),
           fontSize: fontSize,
           fontWeight: fontWeight,
           decoration: textDecoration,
@@ -66,7 +71,10 @@ class AppText extends StatelessWidget {
     return TextStyle(
         color: color,
         overflow: overflow ?? TextOverflow.ellipsis,
-        fontFamily: fontFamily ?? GoogleFonts.libreBaskerville().fontFamily,
+        fontFamily: fontFamily ??
+            (MyApp.locale != null && MyApp.locale == const Locale('ar')
+                ? GoogleFonts.almarai().fontFamily
+                : GoogleFonts.libreBaskerville().fontFamily),
         fontSize: fontSize,
         fontWeight: fontWeight,
         decoration: textDecoration,

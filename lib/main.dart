@@ -19,11 +19,13 @@ class MyApp extends StatelessWidget {
 
   static Future<void> setLocale(
       {required BuildContext context, required String code}) async {
+    _MyHomePageState? state =
+    context.findAncestorStateOfType<_MyHomePageState>();
+    state?.setLocale(Locale(code));
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('locale', code);
-    _MyHomePageState? state =
-        context.findAncestorStateOfType<_MyHomePageState>();
-    state?.setLocale(Locale(code));
+
+
   }
 
   static Future<Locale?> getLocale({required BuildContext context}) async {
@@ -42,11 +44,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        fontFamily: GoogleFonts.libreBaskerville().fontFamily,
+        fontFamily: MyApp.locale == const Locale('ar')
+            ? GoogleFonts.almarai().fontFamily
+            : GoogleFonts.libreBaskerville().fontFamily,
         textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(
             textStyle: TextStyle(
-              fontFamily: GoogleFonts.libreBaskerville().fontFamily,
+              fontFamily: MyApp.locale == const Locale('ar')
+                  ? GoogleFonts.almarai().fontFamily
+                  : GoogleFonts.libreBaskerville().fontFamily,
             ),
           ),
         ),

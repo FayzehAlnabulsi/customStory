@@ -41,7 +41,7 @@ class _ReadStoryState extends State<ReadStory> {
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           padding: EdgeInsets.symmetric(
-            vertical: 60.h,
+            vertical: 55.h,
           ),
           alignment: Alignment.center,
           decoration: BoxDecoration(
@@ -61,23 +61,33 @@ class _ReadStoryState extends State<ReadStory> {
                   children: [
                     Padding(
                       padding: EdgeInsets.only(
-                        right: MyApp.locale == const Locale('ar') ? 15.w : 0,
-                        left: 15.w,
+                        right: MyApp.locale == const Locale('ar') ? 35.w : 0,
+                        left: 35.w,
                       ),
-                      child: Align(
-                        alignment: MyApp.locale == const Locale('ar')
-                            ? Alignment.bottomRight
-                            : Alignment.bottomLeft,
-                        child: IconButton(
-                          icon: Icon(
-                            AppIcons.backArrow,
-                            size: AppSize.appBarIconsSize,
-                            color: AppColor.darkGray.withOpacity(.7),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          IconButton(
+                            icon: Icon(
+                              AppIcons.backArrow,
+                              size: AppSize.appBarIconsSize + 3,
+                              color: AppColor.darkGray.withOpacity(.7),
+                            ),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
                           ),
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                        ),
+                          IconButton(
+                            icon: Icon(
+                              AppIcons.favorite,
+                              size: AppSize.appBarIconsSize + 5,
+                              color: AppColor.favorite,
+                            ),
+                            onPressed: () {
+                             // Navigator.pop(context);
+                            },
+                          ),
+                        ],
                       ),
                     ),
                     Flexible(
@@ -111,8 +121,7 @@ class _ReadStoryState extends State<ReadStory> {
                                                 .data!
                                                 .title ??
                                             '',
-                                        fontFamily: GoogleFonts.actor().fontFamily,
-                                        fontSize: AppSize.titleSize +1,
+                                        fontSize: AppSize.titleSize + 1,
                                         align: TextAlign.center,
                                         textHeight: 2.5,
                                         color:
@@ -130,7 +139,6 @@ class _ReadStoryState extends State<ReadStory> {
                                                 .data!
                                                 .story ??
                                             '',
-                                        fontFamily: GoogleFonts.actor().fontFamily,
                                         fontSize: AppSize.textSize + 3,
                                         align: TextAlign.justify,
                                         textHeight: 2.4,

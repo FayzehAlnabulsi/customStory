@@ -93,8 +93,9 @@ class _ChooseTypeState extends State<ChooseType> {
                             textStyle: TextStyle(
                               fontSize: AppSize.smallSubText - 2,
                               color: AppColor.darkGray,
-                              fontFamily:
-                                  GoogleFonts.libreBaskerville().fontFamily,
+                              fontFamily: MyApp.locale == const Locale('ar')
+                                  ? GoogleFonts.almarai().fontFamily
+                                  : GoogleFonts.libreBaskerville().fontFamily,
                             ),
                           )),
                       DropdownMenuEntry(
@@ -104,8 +105,9 @@ class _ChooseTypeState extends State<ChooseType> {
                             textStyle: TextStyle(
                               fontSize: AppSize.smallSubText,
                               color: AppColor.darkGray,
-                              fontFamily:
-                                  GoogleFonts.libreBaskerville().fontFamily,
+                              fontFamily: MyApp.locale == const Locale('ar')
+                                  ? GoogleFonts.almarai().fontFamily
+                                  : GoogleFonts.libreBaskerville().fontFamily,
                             ),
                           ))
                     ]),

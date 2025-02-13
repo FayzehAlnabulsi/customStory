@@ -10,6 +10,7 @@ class AppColor {
   static Color get blue => const Color(0xFFd6f1f2);
   static Color get purple => const Color(0xFFf2d7fb);
   static Color get yellow => const Color(0xFFfffac0);
+  static Color get favorite => Colors.amber;
   static Color get green => const Color(0xffdaeaae);
   static Color get brown => Colors.brown.withOpacity(0.6);
   static Color get error => const Color(0xffce0f0f);

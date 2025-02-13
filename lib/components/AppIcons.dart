@@ -10,4 +10,5 @@ class AppIcons {
   static IconData success = FluentIcons.checkmark_12_regular;
   static IconData fail = FluentIcons.dismiss_20_regular;
   static IconData globe = FluentIcons.globe_12_filled;
+  static IconData favorite = FluentIcons.star_12_filled;
 }
