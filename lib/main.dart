@@ -1,15 +1,16 @@
 import 'package:custom_story/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'BackEnd/provider_class.dart';
 import 'components/AppMessage.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
 Future<void> main() async {
   await ScreenUtil.ensureScreenSize();
-  runApp(const ProviderScope(child: MyApp()));
+  runApp(const  MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -69,7 +70,7 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver{
   Locale? _locale;
 
   setLocale(Locale locale) {
@@ -96,15 +97,22 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-        minTextAdapt: true,
-        builder: (_, __) => MaterialApp(
-              localizationsDelegates: AppLocalizations.localizationsDelegates,
-              supportedLocales: AppLocalizations.supportedLocales,
-              locale: _locale,
-              home: const SplashScreen(),
-              debugShowCheckedModeBanner: false,
-              title: AppMessage.appName,
-            ));
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => StoryProviderClass(),
+        )
+      ],
+      child: ScreenUtilInit(
+          minTextAdapt: true,
+          builder: (_, __) => MaterialApp(
+                localizationsDelegates: AppLocalizations.localizationsDelegates,
+                supportedLocales: AppLocalizations.supportedLocales,
+                locale: _locale,
+                home: const SplashScreen(),
+                debugShowCheckedModeBanner: false,
+                title: AppMessage.appName,
+              )),
+    );
   }
 }

@@ -11,8 +11,9 @@ import 'package:custom_story/generated/assets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
+import '../../BackEnd/provider_class.dart';
 import '../../Widget/AppBar.dart';
 import '../../components/AppColor.dart';
 import '../../main.dart';
@@ -31,27 +32,26 @@ class _CustomStoryState extends State<CustomStory> {
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
   TextEditingController about = TextEditingController();
   TextEditingController hero = TextEditingController();
-  ProviderContainer? provider;
+  StoryProviderClass? provider;
 
   bool loading = false;
 
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      provider = ProviderScope.containerOf(context);
+      provider = Provider.of<StoryProviderClass>(context, listen: false);
     });
     super.initState();
   }
 
   loadData() async {
     await provider!
-        .read(storyProvider)
         .getStory(
             text:
                 'write kids story about ${about.text}, the main character name is ${hero.text} in a json format contains title and story and list of strings benefits in ${MyApp.locale == const Locale('en') ? 'english' : 'arabic'}')
         .then((result) {
       result == AppMessage.loaded &&
-              provider!.read(storyProvider).story.data!.story!.isNotEmpty
+              provider!.story.data!.story!.isNotEmpty
           ? AppRoutes.pushThenRefresh(context, const ReadStory(), then: (v) {
               AppRoutes.pushReplacementTo(
                   context, noAnimation: true, const LearntMorals());

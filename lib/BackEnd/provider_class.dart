@@ -18,8 +18,10 @@ class StoryProviderClass extends ChangeNotifier {
     result: AppMessage.initial,
   );
 
+  List<Story> favoriteStories = [];
+
   int lastIndex = 1;
-  DateTime lastDate = DateTime.now().subtract(Duration(days: 1));
+  DateTime lastDate = DateTime.now().subtract(const Duration(days: 1));
 
   setPreferences({required int newIndex, required DateTime date}) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
@@ -39,16 +41,15 @@ class StoryProviderClass extends ChangeNotifier {
     SharedPreferences pref = await SharedPreferences.getInstance();
     lastIndex = pref.getInt('lastIndex') ?? 1;
     lastDate = (pref.getString('lastDate') == null
-        ? DateTime.now().subtract(Duration(days: 1))
+        ? DateTime.now().subtract(const Duration(days: 1))
         : DateTime.parse(pref.getString('lastDate')!)!)!;
     notifyListeners();
   }
 
   ///get order=============================================================================================================================================================================================================
-  Future getStory({required String text}) async
-  {
+  Future getStory({required String text}) async {
     debugPrint('getting Story ... !');
-    // try {
+    try {
       story.result = AppMessage.loading;
       notifyListeners();
 
@@ -87,7 +88,25 @@ class StoryProviderClass extends ChangeNotifier {
         notifyListeners();
         return AppMessage.serverExceptions;
       }
-
+    } catch (e) {
+      if (e is FormatException) {
+        story.result = AppMessage.formatException;
+        notifyListeners();
+        return AppMessage.formatException;
+      } else if (e is SocketException) {
+        story.result = AppMessage.socketException;
+        notifyListeners();
+        return AppMessage.socketException;
+      } else if (e is TimeoutException) {
+        story.result = AppMessage.timeoutException;
+        notifyListeners();
+        return AppMessage.timeoutException;
+      } else {
+        story.result = AppMessage.serverExceptions;
+        notifyListeners();
+        return AppMessage.serverExceptions;
+      }
+    }
   }
 
   ///get order=============================================================================================================================================================================================================
@@ -151,5 +170,38 @@ class StoryProviderClass extends ChangeNotifier {
         return AppMessage.serverExceptions;
       }
     }
+  }
+
+  ///====================================================================================================
+  Future getFavoriteStories() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    List temp = json.decode(pref.getString('favList')??'[]') as List<dynamic>;
+   favoriteStories = temp.map((e)=> Story.fromJson(e)).toList();
+   print(favoriteStories);
+    notifyListeners();
+  }
+
+  ///====================================================================================================
+  Future setFavoriteStory() async {
+    List<Story> temp = favoriteStories;
+    //favoriteStories.clear();
+    temp.add(story.data!);
+    favoriteStories = temp;
+    notifyListeners();
+
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setString('favList', jsonEncode(favoriteStories));
+  }
+
+  ///====================================================================================================
+  Future removeFavoriteStory({Story? theStory}) async {
+    List<Story> temp = favoriteStories;
+    //favoriteStories.clear();
+    temp.remove(theStory??story.data);
+    favoriteStories = temp;
+    notifyListeners();
+
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setString('favList', jsonEncode(favoriteStories));
   }
 }

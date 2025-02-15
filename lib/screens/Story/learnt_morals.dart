@@ -5,10 +5,11 @@ import 'package:custom_story/components/AppIcons.dart';
 import 'package:custom_story/components/AppSize.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
+import '../../BackEnd/provider_class.dart';
 import '../../Widget/AppText.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -55,16 +56,14 @@ class _LearntMoralsState extends State<LearntMorals> {
             ListView.builder(
               shrinkWrap: true,
               padding: EdgeInsets.only(top: 20.h),
-              itemCount: ProviderScope.containerOf(context)
-                          .read(storyProvider)
+              itemCount: Provider.of<StoryProviderClass>(context, listen: false)
                           .story
                           .data!
                           .moral!
                           .length >
                       4
                   ? 4
-                  : ProviderScope.containerOf(context)
-                      .read(storyProvider)
+                  : Provider.of<StoryProviderClass>(context, listen: false)
                       .story
                       .data!
                       .moral!
@@ -81,8 +80,8 @@ class _LearntMoralsState extends State<LearntMorals> {
                     ),
                     Flexible(
                       child: AppText(
-                          text: ProviderScope.containerOf(context)
-                              .read(storyProvider)
+                          text: Provider.of<StoryProviderClass>(context,
+                                  listen: false)
                               .story
                               .data!
                               .moral![i],

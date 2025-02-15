@@ -7,11 +7,12 @@ import 'package:custom_story/generated/assets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
 import '../../../Widget/AppBar.dart';
 import '../../../components/AppColor.dart';
+import '../../BackEnd/provider_class.dart';
 import '../../BackEnd/provider_instance.dart';
 import '../../components/AppMessage.dart';
 import '../../main.dart';
@@ -27,13 +28,13 @@ class RandomQuote extends StatefulWidget {
 }
 
 class _RandomQuoteState extends State<RandomQuote> {
-  ProviderContainer? provider;
+  StoryProviderClass? provider;
   final player = AudioPlayer();
 
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      provider = ProviderScope.containerOf(context);
+      provider = Provider.of<StoryProviderClass>(context, listen: false);
       loadData();
     });
   }
@@ -41,7 +42,6 @@ class _RandomQuoteState extends State<RandomQuote> {
   loadData() async {
     AppDialog.showLoading(context: context);
     await provider!
-        .read(storyProvider)
         .getQuote(
             text:
                 'اكتب جملة تشجيعية واحدة phrase من عشر كلمات ليس مصفوفة فقط بصيغة json عشوائية لطفل باللغة ${MyApp.locale == const Locale('en') ? 'الانجليزية' : 'العربية'}')
@@ -51,7 +51,7 @@ class _RandomQuoteState extends State<RandomQuote> {
       await player.play(AssetSource('sound/clapping.mp3'));
 
       result == AppMessage.loaded &&
-              provider!.read(storyProvider).quote.data != null
+              provider!.quote.data != null
           ? null
           : null;
     });
@@ -94,10 +94,7 @@ class _RandomQuoteState extends State<RandomQuote> {
               'assets/lottie/celebrate.json',
             ),
             Center(
-              child: AppText(
-                text: ProviderScope.containerOf(context)
-                        .read(storyProvider)
-                        .quote
+              child: AppText( text: provider?.quote
                         .data
                         ?.encouragement ??
                     'انت شخص رائع',

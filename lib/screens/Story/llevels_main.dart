@@ -10,8 +10,9 @@ import 'package:custom_story/screens/Story/read_story.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
+import '../../BackEnd/provider_class.dart';
 import '../../Widget/AppSnackBar.dart';
 import '../../Widget/AppText.dart';
 import '../../components/AppMessage.dart';
@@ -29,13 +30,13 @@ class LevelsMain extends StatefulWidget {
 }
 
 class _LevelsMainState extends State<LevelsMain> {
-  ProviderContainer? provider;
+  StoryProviderClass? provider;
 
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      provider = ProviderScope.containerOf(context);
-      await provider?.read(storyProvider).getPreferences();
+      provider = Provider.of<StoryProviderClass>(context, listen: false);
+      await provider?.getPreferences();
       setState(() {});
     });
     super.initState();
@@ -43,16 +44,14 @@ class _LevelsMainState extends State<LevelsMain> {
 
   loadData({required String subject, required int index}) async {
     await provider!
-        .read(storyProvider)
         .getStory(
             text:
                 'write kids story about $subject in a json format contains title and story and list of strings benefits in ${MyApp.locale == const Locale('en') ? 'english' : 'arabic'}')
         .then((result) {
       result == AppMessage.loaded &&
-              provider!.read(storyProvider).story.data!.story!.isNotEmpty
+              provider!.story.data!.story!.isNotEmpty
           ? {
               provider!
-                  .read(storyProvider)
                   .setPreferences(newIndex: index, date: DateTime.now()),
               AppRoutes.pushThenRefresh(context, const ReadStory(), then: (v) {
                 print(index);
@@ -143,17 +142,14 @@ class _LevelsMainState extends State<LevelsMain> {
                             onTap: () async {
                               (provider != null &&
                                           (DateTime.now().isAfter(provider!
-                                                  .read(storyProvider)
                                                   .lastDate!
                                                   .add(const Duration(
                                                       days: 1))) &&
                                               i <
                                                   provider!
-                                                      .read(storyProvider)
                                                       .lastIndex!) ||
                                       i <
                                           provider!
-                                                  .read(storyProvider)
                                                   .lastIndex! -
                                               1)
                                   ? {
@@ -167,7 +163,6 @@ class _LevelsMainState extends State<LevelsMain> {
                                     }
                                   : i ==
                                           provider!
-                                                  .read(storyProvider)
                                                   .lastIndex! -
                                               1
                                       ? AppDialog.infoDialogue(
@@ -194,9 +189,7 @@ class _LevelsMainState extends State<LevelsMain> {
                                       child: Image.asset(
                                         'assets/images/book.png',
                                         color: i <
-                                                (provider
-                                                        ?.read(storyProvider)
-                                                        .lastIndex ??
+                                                (provider?.lastIndex ??
                                                     0)
                                             ? null
                                             : AppColor.lightGrey
@@ -207,17 +200,13 @@ class _LevelsMainState extends State<LevelsMain> {
                                   ),
                                   Visibility(
                                     visible: i <
-                                        (provider
-                                                ?.read(storyProvider)
-                                                .lastIndex ??
+                                        (provider?.lastIndex ??
                                             0),
                                     child: Flexible(
                                         flex: 1,
                                         child: AppText(
                                           text: i <
-                                                  (provider
-                                                          ?.read(storyProvider)
-                                                          .lastIndex ??
+                                                  (provider?.lastIndex ??
                                                       0)
                                               ? MyApp.locale ==
                                                       const Locale('en')

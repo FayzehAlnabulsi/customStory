@@ -1,3 +1,4 @@
+import 'package:custom_story/BackEnd/provider_class.dart';
 import 'package:custom_story/BackEnd/provider_instance.dart';
 import 'package:custom_story/Widget/AppBar.dart';
 import 'package:custom_story/components/AppColor.dart';
@@ -7,9 +8,9 @@ import 'package:custom_story/generated/assets.dart';
 import 'package:custom_story/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import '../../Widget/AppText.dart';
 import 'llevels_main.dart';
 
@@ -51,8 +52,7 @@ class _ReadStoryState extends State<ReadStory> {
                   Assets.storyBackground,
                 ).image),
           ),
-          child: ProviderScope.containerOf(context)
-                      .read(storyProvider)
+          child: Provider.of<StoryProviderClass>(context, listen: false)
                       .story
                       .data ==
                   null
@@ -81,10 +81,36 @@ class _ReadStoryState extends State<ReadStory> {
                             icon: Icon(
                               AppIcons.favorite,
                               size: AppSize.appBarIconsSize + 5,
-                              color: AppColor.favorite,
+                              color: Provider.of<StoryProviderClass>(context,
+                                          listen: false)
+                                      .favoriteStories
+                                      .contains(Provider.of<StoryProviderClass>(
+                                              context,
+                                              listen: false)
+                                          .story
+                                          .data)
+                                  ? AppColor.favorite
+                                  : AppColor.darkGray,
                             ),
-                            onPressed: () {
-                              // Navigator.pop(context);
+                            onPressed: () async {
+                              if (!Provider.of<StoryProviderClass>(context,
+                                      listen: false)
+                                  .favoriteStories
+                                  .contains(Provider.of<StoryProviderClass>(
+                                          context,
+                                          listen: false)
+                                      .story
+                                      .data)) {
+                                await Provider.of<StoryProviderClass>(context,
+                                        listen: false)
+                                    .setFavoriteStory();
+                                setState(() {});
+                              } else {
+                                await Provider.of<StoryProviderClass>(context,
+                                        listen: false)
+                                    .removeFavoriteStory();
+                                setState(() {});
+                              }
                             },
                           ),
                         ],
@@ -115,8 +141,9 @@ class _ReadStoryState extends State<ReadStory> {
                                   child: Column(
                                     children: [
                                       AppText(
-                                        text: ProviderScope.containerOf(context)
-                                                .read(storyProvider)
+                                        text: Provider.of<StoryProviderClass>(
+                                                    context,
+                                                    listen: false)
                                                 .story
                                                 .data!
                                                 .title ??
@@ -133,8 +160,9 @@ class _ReadStoryState extends State<ReadStory> {
                                         height: 5.h,
                                       ),
                                       AppText(
-                                        text: ProviderScope.containerOf(context)
-                                                .read(storyProvider)
+                                        text: Provider.of<StoryProviderClass>(
+                                                    context,
+                                                    listen: false)
                                                 .story
                                                 .data!
                                                 .story ??

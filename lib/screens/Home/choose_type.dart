@@ -13,12 +13,12 @@ import 'package:custom_story/screens/Story/llevels_main.dart';
 import 'package:custom_story/screens/quotes/random_quote.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
+import 'package:provider/provider.dart';
+import '../../BackEnd/provider_class.dart';
 import '../../BackEnd/provider_instance.dart';
 
 class ChooseType extends StatefulWidget {
@@ -30,20 +30,24 @@ class ChooseType extends StatefulWidget {
 
 class _ChooseTypeState extends State<ChooseType> {
   TextEditingController about = TextEditingController();
-  ProviderContainer? provider;
+  StoryProviderClass? provider;
 
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      provider = Provider.of<StoryProviderClass>(context, listen: false);
       MyApp.getLocale(context: context).then((v) {
-        print(MyApp.locale);
         setState(() {});
       });
+      loadData();
     });
 
     super.initState();
   }
 
+  loadData() async {
+    await provider!.getFavoriteStories();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -191,9 +195,7 @@ class _ChooseTypeState extends State<ChooseType> {
                               onPressed: () {
                                 AppRoutes.pushThenRefresh(
                                     context, const RandomQuote(), then: (v) {
-                                  ProviderScope.containerOf(context)
-                                      .read(storyProvider)
-                                      .quote
+                                  provider?.quote
                                       .data
                                       ?.encouragement = null;
                                 });
