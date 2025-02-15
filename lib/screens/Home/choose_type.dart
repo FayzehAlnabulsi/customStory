@@ -75,8 +75,11 @@ class _ChooseTypeState extends State<ChooseType> {
                       const RoundedRectangleBorder(
                           borderRadius: BorderRadius.zero),
                     )),
-                    onSelected: (value) {
-                      MyApp.setLocale(context: context, code: value!);
+                    onSelected: (value) async {
+                      await MyApp.setLocale(context: context, code: value!);
+                      setState(() {
+                        MyApp.locale = Locale(value!);
+                      });
                     },
                     textStyle: TextStyle(color: AppColor.noColor),
                     inputDecorationTheme: const InputDecorationTheme(

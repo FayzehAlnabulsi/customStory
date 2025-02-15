@@ -61,7 +61,7 @@ class _ReadStoryState extends State<ReadStory> {
                   children: [
                     Padding(
                       padding: EdgeInsets.only(
-                        right: MyApp.locale == const Locale('ar') ? 35.w : 0,
+                        right: MyApp.locale == const Locale('ar') ? 35.w : 35.w,
                         left: 35.w,
                       ),
                       child: Row(
@@ -84,7 +84,7 @@ class _ReadStoryState extends State<ReadStory> {
                               color: AppColor.favorite,
                             ),
                             onPressed: () {
-                             // Navigator.pop(context);
+                              // Navigator.pop(context);
                             },
                           ),
                         ],

@@ -46,7 +46,7 @@ class _LevelsMainState extends State<LevelsMain> {
         .read(storyProvider)
         .getStory(
             text:
-                'write story about $subject in a json format contains title and story and list of strings benefits in ${MyApp.locale == const Locale('en') ? 'english' : 'arabic'}')
+                'write kids story about $subject in a json format contains title and story and list of strings benefits in ${MyApp.locale == const Locale('en') ? 'english' : 'arabic'}')
         .then((result) {
       result == AppMessage.loaded &&
               provider!.read(storyProvider).story.data!.story!.isNotEmpty

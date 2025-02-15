@@ -48,7 +48,7 @@ class _CustomStoryState extends State<CustomStory> {
         .read(storyProvider)
         .getStory(
             text:
-                'write story about ${about.text}, the main character name is ${hero.text} in a json format contains title and story and list of strings benefits in ${MyApp.locale == const Locale('en') ? 'english' : 'arabic'}')
+                'write kids story about ${about.text}, the main character name is ${hero.text} in a json format contains title and story and list of strings benefits in ${MyApp.locale == const Locale('en') ? 'english' : 'arabic'}')
         .then((result) {
       result == AppMessage.loaded &&
               provider!.read(storyProvider).story.data!.story!.isNotEmpty
