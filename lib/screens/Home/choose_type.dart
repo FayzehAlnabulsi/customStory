@@ -19,7 +19,6 @@ import 'package:lottie/lottie.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import '../../BackEnd/provider_class.dart';
-import '../../BackEnd/provider_instance.dart';
 
 class ChooseType extends StatefulWidget {
   const ChooseType({super.key});

@@ -1,24 +1,9 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:custom_story/Widget/AppBar.dart';
-import 'package:custom_story/Widget/AppButtons.dart';
-import 'package:custom_story/Widget/AppText.dart';
 import 'package:custom_story/components/AppColor.dart';
-import 'package:custom_story/components/AppIcons.dart';
-import 'package:custom_story/components/AppRoutes.dart';
-import 'package:custom_story/components/AppSize.dart';
-import 'package:custom_story/generated/assets.dart';
-import 'package:custom_story/main.dart';
-import 'package:custom_story/screens/Story/cutom_story_type.dart';
-import 'package:custom_story/screens/Story/llevels_main.dart';
-import 'package:custom_story/screens/quotes/random_quote.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-import '../../BackEnd/provider_instance.dart';
 
 class Introduction extends StatefulWidget {
   const Introduction({super.key});

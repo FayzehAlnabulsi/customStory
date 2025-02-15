@@ -13,11 +13,8 @@ import 'package:provider/provider.dart';
 import '../../../Widget/AppBar.dart';
 import '../../../components/AppColor.dart';
 import '../../BackEnd/provider_class.dart';
-import '../../BackEnd/provider_instance.dart';
 import '../../components/AppMessage.dart';
 import '../../main.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 import '../Story/llevels_main.dart';
 
 class RandomQuote extends StatefulWidget {

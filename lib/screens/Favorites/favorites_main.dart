@@ -12,7 +12,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import '../../BackEnd/class_models.dart';
 import '../../BackEnd/provider_class.dart';
-import '../../BackEnd/provider_instance.dart';
 import '../../Widget/AppBar.dart';
 import '../../components/AppColor.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

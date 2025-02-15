@@ -1,4 +1,3 @@
-import 'package:custom_story/BackEnd/provider_instance.dart';
 import 'package:custom_story/Widget/AppBar.dart';
 import 'package:custom_story/Widget/AppDialog.dart';
 import 'package:custom_story/components/AppColor.dart';

@@ -1,6 +1,4 @@
 import 'package:custom_story/BackEnd/provider_class.dart';
-import 'package:custom_story/BackEnd/provider_instance.dart';
-import 'package:custom_story/Widget/AppBar.dart';
 import 'package:custom_story/components/AppColor.dart';
 import 'package:custom_story/components/AppIcons.dart';
 import 'package:custom_story/components/AppSize.dart';
@@ -9,7 +7,6 @@ import 'package:custom_story/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../../Widget/AppText.dart';
 import 'llevels_main.dart';
