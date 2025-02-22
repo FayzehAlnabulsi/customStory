@@ -167,7 +167,7 @@ class _LevelsMainState extends State<LevelsMain> {
                                           message: AppLocalizations.of(context)!
                                               .tomorrowMessage,
                                           lottie:
-                                              'assets/lottie/wait24json.json')
+                                              'assets/lottie/wait24.json')
                                       : null;
                             },
                             child: Container(

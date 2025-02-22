@@ -140,7 +140,7 @@ class _ChooseTypeState extends State<ChooseType> {
                 child: LottieBuilder.asset(
                     //   height: 200.spMin,
                     width: 350.h,
-                    'assets/lottie/HN2PHOXYZO.json'),
+                    Assets.homeAnimation),
               ),
               Flexible(
                 flex: 2,

@@ -6,4 +6,19 @@ class Assets {
   static const String backgroundMain = 'assets/images/main_background.png';
   static const String storyBackground = 'assets/images/story_background.png';
   static const String loading = 'assets/images/logo.png';
+  static const String book = 'assets/images/book.png';
+
+  static const String celebrate = 'assets/lottie/celebrate.json';
+  static const String homeAnimation = 'assets/lottie/home_animation.json';
+  static const String benefitsAnimation = 'assets/lottie/learnt_points.json';
+  static const String intro1 = 'assets/lottie/intro1.json';
+  static const String intro2 = 'assets/lottie/intro2.json';
+  static const String intro3 = 'assets/lottie/intro3.json';
+  static const String levelsAnimation = 'assets/lottie/levels_animation.jsonn';
+  static const String raffle = 'assets/lottie/raffle.json';
+  static const String waitFor24 = 'assets/lottie/wait24.json';
+
+  static const String learntPoints = 'assets/svg/points_book.svg';
+
+  static const String encouragingSound = 'sound/clapping.mp3';
 }

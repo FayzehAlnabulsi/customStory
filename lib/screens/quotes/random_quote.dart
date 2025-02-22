@@ -45,7 +45,7 @@ class _RandomQuoteState extends State<RandomQuote> {
         .then((result) async {
       Navigator.pop(cc!);
       setState(() {});
-      await player.play(AssetSource('sound/clapping.mp3'));
+      await player.play(AssetSource(Assets.encouragingSound));
 
       result == AppMessage.loaded &&
               provider!.quote.data != null
@@ -88,7 +88,7 @@ class _RandomQuoteState extends State<RandomQuote> {
           fit: StackFit.expand,
           children: [
             LottieBuilder.asset(
-              'assets/lottie/celebrate.json',
+              Assets.celebrate,
             ),
             Center(
               child: Container(

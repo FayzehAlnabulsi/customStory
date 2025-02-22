@@ -1,6 +1,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:custom_story/components/AppColor.dart';
 import 'package:custom_story/components/AppRoutes.dart';
+import 'package:custom_story/generated/assets.dart';
 import 'package:custom_story/screens/Home/choose_type.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/cupertino.dart';
@@ -29,21 +30,21 @@ class _IntroductionState extends State<Introduction> {
         0,
         () => {
               "title": "Enhance kids Morals and behaviors by fun stories",
-              "animation": 'assets/lottie/intro1.json',
+              "animation": Assets.intro1,
               "color": AppColor.pink
             });
     intro.putIfAbsent(
         1,
         () => {
               "title": "Your kid is the hero of the story",
-              "animation": 'assets/lottie/intro2.json',
+              "animation": Assets.intro2,
               "color": AppColor.blue
             });
     intro.putIfAbsent(
         2,
         () => {
               "title": "Encourage kids today to become idols tomorrow",
-              "animation": 'assets/lottie/intro3.json',
+              "animation": Assets.intro3,
               "color": AppColor.green
             });
     super.initState();

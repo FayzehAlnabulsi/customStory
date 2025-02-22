@@ -2,6 +2,7 @@ import 'package:custom_story/Widget/AppBar.dart';
 import 'package:custom_story/components/AppColor.dart';
 import 'package:custom_story/components/AppIcons.dart';
 import 'package:custom_story/components/AppSize.dart';
+import 'package:custom_story/generated/assets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -48,7 +49,7 @@ class _LearntMoralsState extends State<LearntMorals> {
                 child: Padding(
                   padding: EdgeInsets.only(bottom: 30.h, left: 20.w),
                   child: LottieBuilder.asset(
-                    'assets/lottie/learnt_points.json',
+                    Assets.benefitsAnimation,
                     height: 250.h,
                   ),
                 )),
@@ -72,7 +73,7 @@ class _LearntMoralsState extends State<LearntMorals> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    SvgPicture.asset('assets/svg/points_book.svg',
+                    SvgPicture.asset(Assets.learntPoints,
                         height: 25.h, width: 30.w),
                     SizedBox(
                       width: 8.w,
