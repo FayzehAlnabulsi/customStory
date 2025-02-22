@@ -17,6 +17,7 @@ class Assets {
   static const String levelsAnimation = 'assets/lottie/levels_animation.jsonn';
   static const String raffle = 'assets/lottie/raffle.json';
   static const String waitFor24 = 'assets/lottie/wait24.json';
+  static const String emptyFavorite = 'assets/lottie/empty_favorite.json';
 
   static const String learntPoints = 'assets/svg/points_book.svg';
 

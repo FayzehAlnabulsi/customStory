@@ -9,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import '../../BackEnd/class_models.dart';
 import '../../BackEnd/provider_class.dart';
@@ -71,9 +72,25 @@ class _FavoritesMainState extends State<FavoritesMain> {
         child: Selector<StoryProviderClass, List<Story>>(
             selector: (_, provider) => provider.favoriteStories,
             builder: (context, list, child) {
-              return ListView.builder(
-                  itemCount: list.length,
-                  itemBuilder: (_, i) => favContainer(list[i]));
+              return list.isEmpty
+                  ? Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        LottieBuilder.asset(
+                            height: 200.h, Assets.emptyFavorite),
+                        AppText(
+                          text: AppLocalizations.of(context)!.emptyFavorites,
+                          fontSize: AppSize.titleSize + 2,
+                          color: AppColor.darkGray,
+                        ),
+                        SizedBox(
+                          height: 50.h,
+                        )
+                      ],
+                    )
+                  : ListView.builder(
+                      itemCount: list.length,
+                      itemBuilder: (_, i) => favContainer(list[i]));
             }),
       ),
     );
@@ -134,7 +151,7 @@ class _FavoritesMainState extends State<FavoritesMain> {
             message: AppLocalizations.of(context)!.confirmDeleteContent,
             child: Padding(
               padding: EdgeInsets.symmetric(
-                  horizontal: 30.spMin, vertical: 30.spMin),
+                  horizontal: 20.spMin, vertical: 30.spMin),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -143,8 +160,9 @@ class _FavoritesMainState extends State<FavoritesMain> {
                       width: 110.w,
                       backgroundColor: AppColor.error,
                       textStyleColor: AppColor.white,
-                      onPressed: () {
-                        provider!.removeFavoriteStory(theStory: list);
+                      onPressed: () async {
+                        await provider!.removeFavoriteStory(theStory: list);
+                        setState(() {});
                         Navigator.of(cc!).pop(true);
                       },
                       text: AppLocalizations.of(context)!.confirm),

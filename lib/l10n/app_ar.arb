@@ -17,5 +17,6 @@
   "confirm":"تأكيد",
   "delete":"حذف",
   "confirmDeleteTitle":"تأكيد الحذف",
-  "confirmDeleteContent":"هل انت متأكد من انك تريد الحذف؟"
+  "confirmDeleteContent":"هل انت متأكد من انك تريد الحذف؟",
+  "emptyFavorites":"لا يوجد قصص مفضلة"
 }
