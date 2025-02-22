@@ -24,6 +24,18 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppleMusicUsageDescription</key>
+    <string>this app needs permission</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+   	<string>Allow the application to access media and files to upload profile and product pictures</string>
+   	<key>NSMotionUsageDescription</key>
+    <string>need permission</string>
+    <key>NSSpeechRecognitionUsageDescription</key>
+    <string>need permission</string>
+    <key>UISupportsDocumentBrowser</key>
+    <true/>
+    <key>UIFileSharingEnabled</key>
+    <true/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

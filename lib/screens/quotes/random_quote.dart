@@ -91,13 +91,22 @@ class _RandomQuoteState extends State<RandomQuote> {
               'assets/lottie/celebrate.json',
             ),
             Center(
-              child: AppText( text: provider?.quote
-                        .data
-                        ?.encouragement ??
-                    'انت شخص رائع',
-                overflow: TextOverflow.visible,
-                align: TextAlign.center,
-                fontSize: AppSize.textSize,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: AppColor.white.withOpacity(.5),
+                  borderRadius: BorderRadius.circular(10.r),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 30.h),
+                  child: AppText( text: provider?.quote
+                            .data
+                            ?.encouragement ??
+                        'انت شخص رائع',
+                    overflow: TextOverflow.visible,
+                    align: TextAlign.center,
+                    fontSize: AppSize.textSize,
+                  ),
+                ),
               ),
             ),
           ],

@@ -26,7 +26,7 @@ class _ReadStoryState extends State<ReadStory> {
 
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       cc != null ? Navigator.pop(cc!) : null;
     });
     super.initState();

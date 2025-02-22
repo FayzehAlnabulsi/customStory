@@ -1,10 +1,12 @@
 import 'package:custom_story/components/AppColor.dart';
 import 'package:custom_story/generated/assets.dart';
+import 'package:custom_story/screens/Home/choose_type.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../components/AppRoutes.dart';
-import 'Home/choose_type.dart';
+import 'Intro/introduction.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -17,9 +19,20 @@ class SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     Future.delayed(const Duration(seconds: 2)).then((v) {
-      AppRoutes.pushReplacementTo(context, const ChooseType());
+      checkIntroduction().then((intro) {
+        if (intro == true) {
+          AppRoutes.pushReplacementTo(context, const Introduction());
+        } else {
+          AppRoutes.pushReplacementTo(context, const ChooseType());
+        }
+      });
     });
     super.initState();
+  }
+
+  Future checkIntroduction() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    return pref.getString('intro') == null;
   }
 
   @override

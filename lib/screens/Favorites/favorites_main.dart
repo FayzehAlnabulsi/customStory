@@ -195,7 +195,7 @@ class _FavoritesMainState extends State<FavoritesMain> {
                 ),
               ),
               SizedBox(
-                width: 10.spMin,
+                width: 15.spMin,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

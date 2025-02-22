@@ -47,11 +47,9 @@ class _LevelsMainState extends State<LevelsMain> {
             text:
                 'write kids story about $subject in a json format contains title and story and list of strings benefits in ${MyApp.locale == const Locale('en') ? 'english' : 'arabic'}')
         .then((result) {
-      result == AppMessage.loaded &&
-              provider!.story.data!.story!.isNotEmpty
+      result == AppMessage.loaded && provider!.story.data!.story!.isNotEmpty
           ? {
-              provider!
-                  .setPreferences(newIndex: index, date: DateTime.now()),
+              provider!.setPreferences(newIndex: index, date: DateTime.now()),
               AppRoutes.pushThenRefresh(context, const ReadStory(), then: (v) {
                 print(index);
                 AppRoutes.pushReplacementTo(
@@ -81,6 +79,9 @@ class _LevelsMainState extends State<LevelsMain> {
     'القناعة',
     'تحمل المسؤولية',
     'الرفق',
+    'الشجاعة',
+    "العائلة",
+    "الرضى"
   ];
 
   List<String> adjEn = [
@@ -95,7 +96,10 @@ class _LevelsMainState extends State<LevelsMain> {
     'Sharing',
     'Conviction',
     'Taking responsibility',
-    'Kindness'
+    'Kindness',
+    "Courage",
+    'Family',
+    'Satisfaction'
   ];
   @override
   Widget build(BuildContext context) {
@@ -136,7 +140,7 @@ class _LevelsMainState extends State<LevelsMain> {
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3, childAspectRatio: .8),
                   children: List.generate(
-                      12,
+                      adj.length,
                       (i) => InkWell(
                             onTap: () async {
                               (provider != null &&
@@ -144,13 +148,8 @@ class _LevelsMainState extends State<LevelsMain> {
                                                   .lastDate!
                                                   .add(const Duration(
                                                       days: 1))) &&
-                                              i <
-                                                  provider!
-                                                      .lastIndex!) ||
-                                      i <
-                                          provider!
-                                                  .lastIndex! -
-                                              1)
+                                              i < provider!.lastIndex!) ||
+                                      i < provider!.lastIndex! - 1)
                                   ? {
                                       AppDialog.showLoading(context: context),
                                       await loadData(
@@ -160,10 +159,7 @@ class _LevelsMainState extends State<LevelsMain> {
                                                   : adj[i],
                                           index: i)
                                     }
-                                  : i ==
-                                          provider!
-                                                  .lastIndex! -
-                                              1
+                                  : i == provider!.lastIndex! - 1
                                       ? AppDialog.infoDialogue(
                                           context: context,
                                           title: AppLocalizations.of(context)!
@@ -187,9 +183,7 @@ class _LevelsMainState extends State<LevelsMain> {
                                       flex: 2,
                                       child: Image.asset(
                                         'assets/images/book.png',
-                                        color: i <
-                                                (provider?.lastIndex ??
-                                                    0)
+                                        color: i < (provider?.lastIndex ?? 0)
                                             ? null
                                             : AppColor.lightGrey
                                                 .withOpacity(.4),
@@ -198,15 +192,11 @@ class _LevelsMainState extends State<LevelsMain> {
                                     height: 5.h,
                                   ),
                                   Visibility(
-                                    visible: i <
-                                        (provider?.lastIndex ??
-                                            0),
+                                    visible: i < (provider?.lastIndex ?? 0),
                                     child: Flexible(
                                         flex: 1,
                                         child: AppText(
-                                          text: i <
-                                                  (provider?.lastIndex ??
-                                                      0)
+                                          text: i < (provider?.lastIndex ?? 0)
                                               ? MyApp.locale ==
                                                       const Locale('en')
                                                   ? adjEn[i]
