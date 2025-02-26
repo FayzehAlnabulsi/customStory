@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:custom_story/BackEnd/provider_class.dart';
 import 'package:custom_story/components/AppColor.dart';
 import 'package:custom_story/components/AppIcons.dart';
@@ -21,8 +23,14 @@ class ReadStory extends StatefulWidget {
 class _ReadStoryState extends State<ReadStory> {
   ScrollController scrollController = ScrollController();
 
+  bool isRecording = false;
+  bool pause = false;
+
   int fromIndex = 0;
   int intTo = 85;
+
+  Timer? timer;
+  int hours = 0, minutes = 0, seconds = 0;
 
   @override
   void initState() {
@@ -30,6 +38,31 @@ class _ReadStoryState extends State<ReadStory> {
       cc != null ? Navigator.pop(cc!) : null;
     });
     super.initState();
+  }
+
+  startTimer() {
+    timer = Timer.periodic(const Duration(seconds: 1), (v) {
+      if (pause == false) {
+        setState(() {
+          seconds++;
+          if (seconds == 60) {
+            seconds = 0;
+            minutes++;
+          }
+          if (minutes == 60) {
+            minutes = 0;
+            hours++;
+          }
+        });
+      }
+    });
+  }
+
+  stopTimer() {
+    timer = null;
+    seconds = 0;
+    minutes = 0;
+    hours = 0;
   }
 
   @override
@@ -58,9 +91,10 @@ class _ReadStoryState extends State<ReadStory> {
                   children: [
                     Padding(
                       padding: EdgeInsets.only(
-                        right: MyApp.locale == const Locale('ar') ? 35.w : 35.w,
-                        left: 35.w,
-                      ),
+                          right:
+                              MyApp.locale == const Locale('ar') ? 35.w : 35.w,
+                          left: 35.w,
+                          bottom: 10.h),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -74,41 +108,156 @@ class _ReadStoryState extends State<ReadStory> {
                               Navigator.pop(context);
                             },
                           ),
-                          IconButton(
-                            icon: Icon(
-                              AppIcons.favorite,
-                              size: AppSize.appBarIconsSize + 5,
-                              color: Provider.of<StoryProviderClass>(context,
+                          Row(
+                            children: [
+                              AnimatedContainer(
+                                duration: const Duration(milliseconds: 500),
+                                width: isRecording ? 120.w : 30.h,
+                                height: 30.h,
+                                child: Container(
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(50.r),
+                                        border: Border.all(
+                                            color: AppColor.darkGray,
+                                            width: .75)),
+                                    child: Row(
+                                      mainAxisAlignment: isRecording
+                                          ? MainAxisAlignment.start
+                                          : MainAxisAlignment.center,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Transform.translate(
+                                              offset: Offset(3.w, 0),
+                                              child: InkWell(
+                                                onTap: () {
+                                                  setState(() {
+                                                    isRecording
+                                                        ? {pause = !pause}
+                                                        : {
+                                                            isRecording = true,
+                                                            startTimer(),
+                                                            pause = false
+                                                          };
+                                                  });
+                                                },
+                                                child: Padding(
+                                                  padding: EdgeInsets.only(
+                                                      right: isRecording? 10.w:
+                                                      6.w,
+                                                      left: isRecording
+                                                          ? 5.w
+                                                          : 0),
+                                                  child: Icon(
+                                                    isRecording
+                                                        ? pause
+                                                            ? Icons.mic
+                                                            : Icons.pause
+                                                        : Icons.mic,
+                                                    size: AppSize
+                                                            .appBarIconsSize +
+                                                        5,
+                                                    color: AppColor.darkGray,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Visibility(
+                                              visible: isRecording,
+                                              child: SizedBox(
+                                                width: 5.w,
+                                                child: VerticalDivider(
+                                                  color: AppColor.lightGrey,
+                                                  width: 1.w,
+                                                ),
+                                              ),
+                                            ),
+                                            Visibility(
+                                              visible: isRecording,
+                                              child: InkWell(
+                                                onTap: () {
+                                                  setState(() {
+                                                    isRecording = false;
+                                                    stopTimer();
+                                                  });
+                                                },
+                                                child: Padding(
+                                                  padding: EdgeInsets.only(
+                                                      right: 5.w),
+                                                  child: Icon(
+                                                    Icons.stop,
+                                                    size: AppSize
+                                                            .appBarIconsSize +
+                                                        5,
+                                                    color: AppColor.black,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Visibility(
+                                          visible: isRecording,
+                                          child: Padding(
+                                            padding: EdgeInsets.only(
+                                              right: 8.w,
+                                            ),
+                                            child: AppText(
+                                                text:
+                                                    '0$hours:0$minutes:$seconds',
+                                                color: AppColor.darkGray,
+                                                fontSize:
+                                                    AppSize.appBarTextSize),
+                                          ),
+                                        )
+                                      ],
+                                    )),
+                              ),
+                              SizedBox(
+                                width: 5.w,
+                              ),
+                              IconButton(
+                                icon: Icon(
+                                  AppIcons.favorite,
+                                  size: AppSize.appBarIconsSize + 5,
+                                  color: Provider.of<StoryProviderClass>(
+                                              context,
+                                              listen: false)
+                                          .favoriteStories
+                                          .contains(
+                                              Provider.of<StoryProviderClass>(
+                                                      context,
+                                                      listen: false)
+                                                  .story
+                                                  .data)
+                                      ? AppColor.favorite
+                                      : AppColor.darkGray,
+                                ),
+                                onPressed: () async {
+                                  if (!Provider.of<StoryProviderClass>(context,
                                           listen: false)
                                       .favoriteStories
                                       .contains(Provider.of<StoryProviderClass>(
                                               context,
                                               listen: false)
                                           .story
-                                          .data)
-                                  ? AppColor.favorite
-                                  : AppColor.darkGray,
-                            ),
-                            onPressed: () async {
-                              if (!Provider.of<StoryProviderClass>(context,
-                                      listen: false)
-                                  .favoriteStories
-                                  .contains(Provider.of<StoryProviderClass>(
-                                          context,
-                                          listen: false)
-                                      .story
-                                      .data)) {
-                                await Provider.of<StoryProviderClass>(context,
-                                        listen: false)
-                                    .setFavoriteStory();
-                                setState(() {});
-                              } else {
-                                await Provider.of<StoryProviderClass>(context,
-                                        listen: false)
-                                    .removeFavoriteStory();
-                                setState(() {});
-                              }
-                            },
+                                          .data)) {
+                                    await Provider.of<StoryProviderClass>(
+                                            context,
+                                            listen: false)
+                                        .setFavoriteStory();
+                                    setState(() {});
+                                  } else {
+                                    await Provider.of<StoryProviderClass>(
+                                            context,
+                                            listen: false)
+                                        .removeFavoriteStory();
+                                    setState(() {});
+                                  }
+                                },
+                              ),
+                            ],
                           ),
                         ],
                       ),
