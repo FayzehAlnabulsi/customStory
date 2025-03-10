@@ -177,14 +177,14 @@ class StoryProviderClass extends ChangeNotifier {
     SharedPreferences pref = await SharedPreferences.getInstance();
     List temp = json.decode(pref.getString('favList')??'[]') as List<dynamic>;
    favoriteStories = temp.map((e)=> Story.fromJson(e)).toList();
-   print(favoriteStories);
     notifyListeners();
   }
 
   ///====================================================================================================
   Future setFavoriteStory() async {
-    List<Story> temp = favoriteStories;
-    //favoriteStories.clear();
+    List<Story> temp = [];
+    temp = favoriteStories;
+    favoriteStories = [];
     temp.add(story.data!);
     favoriteStories = temp;
     notifyListeners();
@@ -195,8 +195,9 @@ class StoryProviderClass extends ChangeNotifier {
 
   ///====================================================================================================
   Future removeFavoriteStory({Story? theStory}) async {
-    List<Story> temp = favoriteStories;
-    //favoriteStories.clear();
+    List<Story> temp = [];
+    temp = favoriteStories;
+    favoriteStories = [];
     temp.remove(theStory??story.data);
     favoriteStories = temp;
     notifyListeners();

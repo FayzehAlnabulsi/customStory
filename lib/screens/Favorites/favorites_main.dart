@@ -41,7 +41,7 @@ class _FavoritesMainState extends State<FavoritesMain> {
   }
 
   loadData() async {
-    await provider!.getFavoriteStories();
+   // await provider!.getFavoriteStories();
   }
 
   @override
@@ -96,7 +96,7 @@ class _FavoritesMainState extends State<FavoritesMain> {
     );
   }
 
-  Widget favContainer(Story list) {
+  Widget favContainer(Story story) {
     return Dismissible(
       background: Container(
         margin: EdgeInsets.all(5.r),
@@ -161,7 +161,7 @@ class _FavoritesMainState extends State<FavoritesMain> {
                       backgroundColor: AppColor.error,
                       textStyleColor: AppColor.white,
                       onPressed: () async {
-                        await provider!.removeFavoriteStory(theStory: list);
+                        await provider!.removeFavoriteStory(theStory: story);
                         setState(() {});
                         Navigator.of(cc!).pop(true);
                       },
@@ -182,7 +182,7 @@ class _FavoritesMainState extends State<FavoritesMain> {
       key: const Key(''),
       child: InkWell(
         onTap: () {
-          provider!.story.data = list;
+          provider!.story.data = story;
           provider!.story.result = AppMessage.loaded;
           AppRoutes.pushThenRefresh(context, const ReadStory(), then: (v) {
             AppRoutes.pushReplacementTo(
@@ -207,7 +207,7 @@ class _FavoritesMainState extends State<FavoritesMain> {
                 radius: 30.r,
                 backgroundColor: AppColor.purple.withOpacity(.6),
                 child: Icon(
-                  AppIcons.book,
+                  story.voiceFile == null ? AppIcons.book : AppIcons.sound,
                   color: AppColor.darkGray.withOpacity(.6),
                   size: AppSize.appBarIconsSize + 10,
                 ),
@@ -219,13 +219,17 @@ class _FavoritesMainState extends State<FavoritesMain> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  AppText(
-                    text: list.title!,
-                    fontSize: AppSize.titleSize - 1,
-                    color: AppColor.darkGray.withOpacity(.8),
+                  SizedBox(
+                    width: 230.w,
+                    child: AppText(
+                      text: story.title!,
+                      fontSize: AppSize.titleSize - 1,
+                      color: AppColor.darkGray.withOpacity(.8),
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                   AppText(
-                    text: '${list.story!.substring(0, 25)}...',
+                    text: '${story.story!.substring(0, 25)}...',
                     fontSize: AppSize.subTitle,
                     color: AppColor.darkGray.withOpacity(.6),
                   ),

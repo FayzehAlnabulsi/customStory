@@ -45,7 +45,7 @@ class _ChooseTypeState extends State<ChooseType> {
   }
 
   loadData() async {
-    await provider!.getFavoriteStories();
+   await provider!.getFavoriteStories();
   }
   @override
   Widget build(BuildContext context) {

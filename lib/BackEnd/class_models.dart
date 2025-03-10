@@ -19,12 +19,9 @@ class Story {
   String? title;
   String? story;
   List<String>? moral;
+  String? voiceFile;
 
-  Story({
-    this.title,
-    this.story,
-    this.moral,
-  });
+  Story({this.title, this.story, this.moral, this.voiceFile});
 
   factory Story.fromJson(Map<String, dynamic> json) {
     return Story(
@@ -33,13 +30,16 @@ class Story {
       moral: json["benefits"] == null || json["benefits"] is List<String>
           ? <String>[]
           : List<String>.from(json["benefits"]!.map((x) => x)),
+      voiceFile: json["voiceFile"],
     );
   }
 
   Map<String, dynamic> toJson() => {
         "title": title,
         "story": story,
-        "benefits": moral == null ? [] : List<dynamic>.from(moral!.map((x) => x)),
+        "benefits":
+            moral == null ? [] : List<dynamic>.from(moral!.map((x) => x)),
+        "voiceFile": voiceFile
       };
 }
 
