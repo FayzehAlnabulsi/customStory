@@ -113,116 +113,143 @@ class _ReadStoryState extends State<ReadStory> {
                               builder: (context, list, child) {
                             return Row(
                               children: [
-                                AnimatedContainer(
-                                  duration: const Duration(milliseconds: 500),
-                                  width: isRecording ? 120.w : 30.h,
-                                  height: 30.h,
-                                  child: Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(50.r),
-                                          border: Border.all(
+                                list.story.data!.voiceFile != null
+                                    ? CircleAvatar(
+                                  radius: 17.r,
+                                  backgroundColor: AppColor.darkGray.withOpacity(.05),
+                                        child: IconButton(
+                                            onPressed: () {},
+                                            icon: Icon(
+                                              AppIcons.play,
                                               color: AppColor.darkGray,
-                                              width: .75)),
-                                      child: Row(
-                                        mainAxisAlignment: isRecording
-                                            ? MainAxisAlignment.start
-                                            : MainAxisAlignment.center,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Transform.translate(
-                                                offset: Offset(3.w, 0),
-                                                child: InkWell(
-                                                  onTap: () {
-                                                    setState(() {
-                                                      isRecording
-                                                          ? {pause = !pause}
-                                                          : {
-                                                              isRecording =
-                                                                  true,
-                                                              startTimer(),
-                                                              pause = false
-                                                            };
-                                                    });
-                                                  },
+                                              size: AppSize.appBarIconsSize + 3,
+                                            )),
+                                      )
+                                    : AnimatedContainer(
+                                        duration:
+                                            const Duration(milliseconds: 500),
+                                        width: isRecording ? 120.w : 30.h,
+                                        height: 30.h,
+                                        child: Container(
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(50.r),
+                                                border: Border.all(
+                                                    color: AppColor.darkGray,
+                                                    width: .75)),
+                                            child: Row(
+                                              mainAxisAlignment: isRecording
+                                                  ? MainAxisAlignment.start
+                                                  : MainAxisAlignment.center,
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    Transform.translate(
+                                                      offset: Offset(3.w, 0),
+                                                      child: InkWell(
+                                                        onTap: () {
+                                                          setState(() {
+                                                            isRecording
+                                                                ? {
+                                                                    pause =
+                                                                        !pause
+                                                                  }
+                                                                : {
+                                                                    isRecording =
+                                                                        true,
+                                                                    startTimer(),
+                                                                    pause =
+                                                                        false
+                                                                  };
+                                                          });
+                                                        },
+                                                        child: Padding(
+                                                          padding:
+                                                              EdgeInsets.only(
+                                                                  right:
+                                                                      isRecording
+                                                                          ? 10.w
+                                                                          : 6.w,
+                                                                  left:
+                                                                      isRecording
+                                                                          ? 5.w
+                                                                          : 0),
+                                                          child: Icon(
+                                                            isRecording
+                                                                ? pause
+                                                                    ? Icons.mic
+                                                                    : Icons
+                                                                        .pause
+                                                                : Icons.mic,
+                                                            size: AppSize
+                                                                    .appBarIconsSize +
+                                                                5,
+                                                            color: AppColor
+                                                                .darkGray,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Visibility(
+                                                      visible: isRecording,
+                                                      child: SizedBox(
+                                                        width: 5.w,
+                                                        child: VerticalDivider(
+                                                          color: AppColor
+                                                              .lightGrey,
+                                                          width: 1.w,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Visibility(
+                                                      visible: isRecording,
+                                                      child: InkWell(
+                                                        onTap: () async {
+                                                          setState(() {
+                                                            isRecording = false;
+                                                            stopTimer();
+                                                          });
+                                                          list.story.data!
+                                                                  .voiceFile =
+                                                              'file';
+                                                          await list
+                                                              .setFavoriteStory();
+                                                        },
+                                                        child: Padding(
+                                                          padding:
+                                                              EdgeInsets.only(
+                                                                  right: 5.w),
+                                                          child: Icon(
+                                                            Icons.stop,
+                                                            size: AppSize
+                                                                    .appBarIconsSize +
+                                                                5,
+                                                            color:
+                                                                AppColor.black,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Visibility(
+                                                  visible: isRecording,
                                                   child: Padding(
                                                     padding: EdgeInsets.only(
-                                                        right: isRecording
-                                                            ? 10.w
-                                                            : 6.w,
-                                                        left: isRecording
-                                                            ? 5.w
-                                                            : 0),
-                                                    child: Icon(
-                                                      isRecording
-                                                          ? pause
-                                                              ? Icons.mic
-                                                              : Icons.pause
-                                                          : Icons.mic,
-                                                      size: AppSize
-                                                              .appBarIconsSize +
-                                                          5,
-                                                      color: AppColor.darkGray,
+                                                      right: 8.w,
                                                     ),
+                                                    child: AppText(
+                                                        text:
+                                                            '0$hours:0$minutes:$seconds',
+                                                        color:
+                                                            AppColor.darkGray,
+                                                        fontSize: AppSize
+                                                            .appBarTextSize),
                                                   ),
-                                                ),
-                                              ),
-                                              Visibility(
-                                                visible: isRecording,
-                                                child: SizedBox(
-                                                  width: 5.w,
-                                                  child: VerticalDivider(
-                                                    color: AppColor.lightGrey,
-                                                    width: 1.w,
-                                                  ),
-                                                ),
-                                              ),
-                                              Visibility(
-                                                visible: isRecording,
-                                                child: InkWell(
-                                                  onTap: () async {
-                                                    setState(() {
-                                                      isRecording = false;
-                                                      stopTimer();
-                                                    });
-                                                    list.story.data!.voiceFile =
-                                                        'file';
-                                                    await list
-                                                        .setFavoriteStory();
-                                                  },
-                                                  child: Padding(
-                                                    padding: EdgeInsets.only(
-                                                        right: 5.w),
-                                                    child: Icon(
-                                                      Icons.stop,
-                                                      size: AppSize
-                                                              .appBarIconsSize +
-                                                          5,
-                                                      color: AppColor.black,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          Visibility(
-                                            visible: isRecording,
-                                            child: Padding(
-                                              padding: EdgeInsets.only(
-                                                right: 8.w,
-                                              ),
-                                              child: AppText(
-                                                  text:
-                                                      '0$hours:0$minutes:$seconds',
-                                                  color: AppColor.darkGray,
-                                                  fontSize:
-                                                      AppSize.appBarTextSize),
-                                            ),
-                                          )
-                                        ],
-                                      )),
-                                ),
+                                                )
+                                              ],
+                                            )),
+                                      ),
                                 SizedBox(
                                   width: 5.w,
                                 ),

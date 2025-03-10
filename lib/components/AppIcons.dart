@@ -14,4 +14,5 @@ class AppIcons {
   static IconData book = FluentIcons.book_open_16_filled;
   static IconData delete = FluentIcons.delete_12_filled;
   static IconData sound = FluentIcons.sound_wave_circle_16_filled;
+  static IconData play = FluentIcons.play_12_filled;
 }
