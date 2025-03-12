@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:io';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:custom_story/BackEnd/provider_class.dart';
 import 'package:custom_story/components/AppColor.dart';
 import 'package:custom_story/components/AppIcons.dart';
@@ -9,8 +11,10 @@ import 'package:custom_story/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
-import '../../BackEnd/class_models.dart';
+import 'package:record/record.dart';
 import '../../Widget/AppText.dart';
 import 'llevels_main.dart';
 
@@ -23,9 +27,12 @@ class ReadStory extends StatefulWidget {
 
 class _ReadStoryState extends State<ReadStory> {
   ScrollController scrollController = ScrollController();
+  final record = AudioRecorder();
+  final player = AudioPlayer();
 
   bool isRecording = false;
   bool pause = false;
+  bool isPlaying = false;
 
   int fromIndex = 0;
   int intTo = 85;
@@ -37,6 +44,11 @@ class _ReadStoryState extends State<ReadStory> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       cc != null ? Navigator.pop(cc!) : null;
+    });
+    player.onPlayerComplete.listen((event) {
+      setState(() {
+        isPlaying = false;
+      });
     });
     super.initState();
   }
@@ -64,6 +76,12 @@ class _ReadStoryState extends State<ReadStory> {
     seconds = 0;
     minutes = 0;
     hours = 0;
+  }
+
+  @override
+  void dispose() {
+    record.dispose();
+    super.dispose();
   }
 
   @override
@@ -115,12 +133,26 @@ class _ReadStoryState extends State<ReadStory> {
                               children: [
                                 list.story.data!.voiceFile != null
                                     ? CircleAvatar(
-                                  radius: 17.r,
-                                  backgroundColor: AppColor.darkGray.withOpacity(.05),
+                                        radius: 17.r,
+                                        backgroundColor:
+                                            AppColor.darkGray.withOpacity(.05),
                                         child: IconButton(
-                                            onPressed: () {},
+                                            onPressed: () async {
+                                              setState(() {
+                                                isPlaying = !isPlaying;
+                                              });
+                                              isPlaying
+                                                  ? await player.play(
+                                                      DeviceFileSource(list
+                                                          .story
+                                                          .data!
+                                                          .voiceFile!))
+                                                  : await player.pause();
+                                            },
                                             icon: Icon(
-                                              AppIcons.play,
+                                              isPlaying
+                                                  ? Icons.pause
+                                                  : AppIcons.play,
                                               color: AppColor.darkGray,
                                               size: AppSize.appBarIconsSize + 3,
                                             )),
@@ -147,21 +179,61 @@ class _ReadStoryState extends State<ReadStory> {
                                                     Transform.translate(
                                                       offset: Offset(3.w, 0),
                                                       child: InkWell(
-                                                        onTap: () {
-                                                          setState(() {
-                                                            isRecording
-                                                                ? {
+                                                        onTap: () async {
+                                                          String thePath =
+                                                              await getPath();
+
+                                                          isRecording
+                                                              ? {
+                                                                  pause
+                                                                      ? await record
+                                                                          .resume()
+                                                                      : await record
+                                                                          .pause(),
+                                                                  setState(() {
                                                                     pause =
-                                                                        !pause
-                                                                  }
-                                                                : {
-                                                                    isRecording =
-                                                                        true,
-                                                                    startTimer(),
-                                                                    pause =
-                                                                        false
-                                                                  };
-                                                          });
+                                                                        !pause;
+                                                                  }),
+                                                                }
+                                                              : {
+                                                                  if (await record
+                                                                      .hasPermission())
+                                                                    {
+                                                                      await record.start(
+                                                                          const RecordConfig(),
+                                                                          path:
+                                                                              thePath),
+                                                                      setState(
+                                                                          () {
+                                                                        startTimer();
+                                                                        pause =
+                                                                            false;
+                                                                        isRecording =
+                                                                            true;
+                                                                      })
+                                                                    }
+                                                                  else
+                                                                    {
+                                                                      await Permission
+                                                                          .microphone
+                                                                          .request(),
+                                                                      if (await record
+                                                                          .hasPermission())
+                                                                        {
+                                                                          await record.start(
+                                                                              const RecordConfig(),
+                                                                              path: thePath),
+                                                                          setState(
+                                                                              () {
+                                                                            startTimer();
+                                                                            pause =
+                                                                                false;
+                                                                            isRecording =
+                                                                                true;
+                                                                          })
+                                                                        }
+                                                                    }
+                                                                };
                                                         },
                                                         child: Padding(
                                                           padding:
@@ -209,9 +281,12 @@ class _ReadStoryState extends State<ReadStory> {
                                                             isRecording = false;
                                                             stopTimer();
                                                           });
+                                                          final path =
+                                                              await record
+                                                                  .stop();
+                                                          print(path);
                                                           list.story.data!
-                                                                  .voiceFile =
-                                                              'file';
+                                                              .voiceFile = path;
                                                           await list
                                                               .setFavoriteStory();
                                                         },
@@ -343,5 +418,14 @@ class _ReadStoryState extends State<ReadStory> {
                   ],
                 )),
     );
+  }
+
+  Future<String> getPath() async {
+    await Permission.storage.request();
+    Directory appDocDir = await getApplicationDocumentsDirectory();
+    String appDocPath = appDocDir.path;
+    File file = File('$appDocPath/levels/story${Duration.microsecondsPerMillisecond}.m4a');
+    await file.create(recursive: true);
+    return file.path;
   }
 }

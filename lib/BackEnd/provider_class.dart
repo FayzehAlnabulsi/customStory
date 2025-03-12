@@ -188,6 +188,7 @@ class StoryProviderClass extends ChangeNotifier {
     temp.add(story.data!);
     favoriteStories = temp;
     notifyListeners();
+    print(favoriteStories[0].voiceFile);
 
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.setString('favList', jsonEncode(favoriteStories));
