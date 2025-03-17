@@ -18,6 +18,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../BackEnd/provider_class.dart';
 
 class ChooseType extends StatefulWidget {
@@ -45,8 +46,9 @@ class _ChooseTypeState extends State<ChooseType> {
   }
 
   loadData() async {
-   await provider!.getFavoriteStories();
+    await provider!.getFavoriteStories();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -144,85 +146,104 @@ class _ChooseTypeState extends State<ChooseType> {
               ),
               Flexible(
                 flex: 2,
-                child: Padding(
-                  padding: EdgeInsets.only(bottom: 60.spMin),
-                  child: Stack(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.6),
-                            borderRadius: BorderRadius.circular(10.r)),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 50.spMin),
+                      child: Stack(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white.withOpacity(0.6),
+                                borderRadius: BorderRadius.circular(10.r)),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.all(13.spMin),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                AppText(
+                                  text: AppLocalizations.of(context)!.mainTitle,
+                                  fontSize: AppSize.titleSize,
+                                  overflow: TextOverflow.visible,
+                                  color: AppColor.darkGray.withOpacity(.8),
+                                  align: TextAlign.center,
+                                ),
+                                SizedBox(
+                                  height: 25.h,
+                                ),
+                                AppButtons(
+                                  onPressed: () {
+                                    AppRoutes.pushTo(
+                                        context, const LevelsMain());
+                                  },
+                                  text: AppLocalizations.of(context)!.levels,
+                                  width: double.infinity,
+                                  backgroundColor: AppColor.pink,
+                                ),
+                                SizedBox(
+                                  height: 13.h,
+                                ),
+                                AppButtons(
+                                  onPressed: () {
+                                    AppRoutes.pushTo(
+                                        context, const CustomStory());
+                                  },
+                                  text:
+                                      AppLocalizations.of(context)!.customStory,
+                                  width: double.infinity,
+                                  backgroundColor: AppColor.blue,
+                                ),
+                                SizedBox(
+                                  height: 13.h,
+                                ),
+                                AppButtons(
+                                  onPressed: () {
+                                    AppRoutes.pushThenRefresh(
+                                        context, const RandomQuote(),
+                                        then: (v) {
+                                      provider?.quote.data?.encouragement =
+                                          null;
+                                    });
+                                  },
+                                  text: AppLocalizations.of(context)!
+                                      .encouragementMessage,
+                                  width: double.infinity,
+                                  backgroundColor: AppColor.green,
+                                ),
+                                SizedBox(
+                                  height: 13.h,
+                                ),
+                                AppButtons(
+                                  onPressed: () {
+                                    AppRoutes.pushTo(
+                                        context, const FavoritesMain());
+                                  },
+                                  text: AppLocalizations.of(context)!.favorites,
+                                  width: double.infinity,
+                                  backgroundColor:
+                                      AppColor.purple.withOpacity(.6),
+                                )
+                              ],
+                            ),
+                          )
+                        ],
                       ),
-                      Padding(
-                        padding: EdgeInsets.all(13.spMin),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            AppText(
-                              text: AppLocalizations.of(context)!.mainTitle,
-                              fontSize: AppSize.titleSize,
-                              overflow: TextOverflow.visible,
-                              color: AppColor.darkGray.withOpacity(.8),
-                              align: TextAlign.center,
-                            ),
-                            SizedBox(
-                              height: 25.h,
-                            ),
-                            AppButtons(
-                              onPressed: () {
-                                AppRoutes.pushTo(context, const LevelsMain());
-                              },
-                              text: AppLocalizations.of(context)!.levels,
-                              width: double.infinity,
-                              backgroundColor: AppColor.pink,
-                            ),
-                            SizedBox(
-                              height: 13.h,
-                            ),
-                            AppButtons(
-                              onPressed: () {
-                                AppRoutes.pushTo(context, const CustomStory());
-                              },
-                              text: AppLocalizations.of(context)!.customStory,
-                              width: double.infinity,
-                              backgroundColor: AppColor.blue,
-                            ),
-                            SizedBox(
-                              height: 13.h,
-                            ),
-                            AppButtons(
-                              onPressed: () {
-                                AppRoutes.pushThenRefresh(
-                                    context, const RandomQuote(), then: (v) {
-                                  provider?.quote
-                                      .data
-                                      ?.encouragement = null;
-                                });
-                              },
-                              text: AppLocalizations.of(context)!
-                                  .encouragementMessage,
-                              width: double.infinity,
-                              backgroundColor: AppColor.green,
-                            ),
-                            SizedBox(
-                              height: 13.h,
-                            ),
-                            AppButtons(
-                              onPressed: () {
-                                AppRoutes.pushTo(
-                                    context, const FavoritesMain());
-                              },
-                              text: AppLocalizations.of(context)!.favorites,
-                              width: double.infinity,
-                              backgroundColor: AppColor.purple.withOpacity(.6),
-                            )
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
+                    ),
+                    InkWell(
+                        onTap: () async {
+                          await launchUrl(Uri.parse(
+                              'https://github.com/FayzehAlnabulsi/customStory/blob/main/PrivacyPolicy'));
+                        },
+                        child: AppText(
+                          text: AppLocalizations.of(context)!.privacyPolicy,
+                          fontSize: AppSize.errorSize,
+                          textDecoration: TextDecoration.underline,
+                          color: AppColor.darkGray.withOpacity(.8),
+                        ))
+                  ],
                 ),
-              )
+              ),
             ],
           )),
     );

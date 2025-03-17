@@ -27,7 +27,7 @@ class ReadStory extends StatefulWidget {
 
 class _ReadStoryState extends State<ReadStory> {
   ScrollController scrollController = ScrollController();
-  final record = AudioRecorder();
+  final record = Record();
   final player = AudioPlayer();
 
   bool isRecording = false;
@@ -80,6 +80,7 @@ class _ReadStoryState extends State<ReadStory> {
 
   @override
   void dispose() {
+    isPlaying ? player.stop() : null;
     record.dispose();
     super.dispose();
   }
@@ -124,6 +125,7 @@ class _ReadStoryState extends State<ReadStory> {
                               color: AppColor.darkGray.withOpacity(.7),
                             ),
                             onPressed: () {
+                              isPlaying ? player.stop() : null;
                               Navigator.pop(context);
                             },
                           ),
@@ -200,7 +202,6 @@ class _ReadStoryState extends State<ReadStory> {
                                                                       .hasPermission())
                                                                     {
                                                                       await record.start(
-                                                                          const RecordConfig(),
                                                                           path:
                                                                               thePath),
                                                                       setState(
@@ -221,7 +222,6 @@ class _ReadStoryState extends State<ReadStory> {
                                                                           .hasPermission())
                                                                         {
                                                                           await record.start(
-                                                                              const RecordConfig(),
                                                                               path: thePath),
                                                                           setState(
                                                                               () {
@@ -424,7 +424,8 @@ class _ReadStoryState extends State<ReadStory> {
     await Permission.storage.request();
     Directory appDocDir = await getApplicationDocumentsDirectory();
     String appDocPath = appDocDir.path;
-    File file = File('$appDocPath/levels/story${Duration.microsecondsPerMillisecond}.m4a');
+    File file = File(
+        '$appDocPath/levels/story${Duration.microsecondsPerMillisecond}.m4a');
     await file.create(recursive: true);
     return file.path;
   }

@@ -18,5 +18,6 @@
     "confirm":"confirm",
     "confirmDeleteTitle":"confirm delete",
     "confirmDeleteContent":"Are sure you want to delete from favorites?",
-    "emptyFavorites":"No favorite stories added"
+    "emptyFavorites":"No favorite stories added",
+    "privacyPolicy":"Privacy policy"
 }
