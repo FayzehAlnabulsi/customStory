@@ -46,6 +46,16 @@ class StoryProviderClass extends ChangeNotifier {
     notifyListeners();
   }
 
+  setShowCasePreferences() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setBool('doneShowCase', true);
+  }
+
+  getShowCasePreferences() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    return pref.getBool('doneShowCase');
+  }
+
   ///get order=============================================================================================================================================================================================================
   Future getStory({required String text}) async {
     debugPrint('getting Story ... !');
@@ -175,8 +185,8 @@ class StoryProviderClass extends ChangeNotifier {
   ///====================================================================================================
   Future getFavoriteStories() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
-    List temp = json.decode(pref.getString('favList')??'[]') as List<dynamic>;
-   favoriteStories = temp.map((e)=> Story.fromJson(e)).toList();
+    List temp = json.decode(pref.getString('favList') ?? '[]') as List<dynamic>;
+    favoriteStories = temp.map((e) => Story.fromJson(e)).toList();
     notifyListeners();
   }
 
@@ -199,7 +209,7 @@ class StoryProviderClass extends ChangeNotifier {
     List<Story> temp = [];
     temp = favoriteStories;
     favoriteStories = [];
-    temp.remove(theStory??story.data);
+    temp.remove(theStory ?? story.data);
     favoriteStories = temp;
     notifyListeners();
 

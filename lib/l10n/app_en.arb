@@ -19,5 +19,7 @@
     "confirmDeleteTitle":"confirm delete",
     "confirmDeleteContent":"Are sure you want to delete from favorites?",
     "emptyFavorites":"No favorite stories added",
-    "privacyPolicy":"Privacy policy"
+    "privacyPolicy":"Privacy policy",
+    "addToFavorites":"Click here to add the story to your favorites",
+    "recordStory":"you can record your voice while reading the story and listen to it later from the favorites"
 }
